@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre • Esferas 19: Misión Lunar & Marciana (v0.1 Base)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fredoka', sans-serif;
+            user-select: none;
+            overflow: hidden;
+            background-color: #060916;
+            background-image: 
+                radial-gradient(circle at 12% 18%, rgba(0, 242, 254, 0.14) 0%, transparent 38%),
+                radial-gradient(circle at 88% 82%, rgba(255, 89, 100, 0.14) 0%, transparent 38%),
+                radial-gradient(circle at 50% 50%, #101736 0%, #050711 100%);
+            color: white;
+            margin: 0;
+        }
+        .stars-bg {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                radial-gradient(2px 2px at 25px 35px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 70px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 50px 160px, #00f2fe, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 220px 220px;
+            opacity: 0.65;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .lunar-ground {
+            position: fixed;
+            bottom: -45px;
+            left: -10%;
+            width: 120%;
+            height: 150px;
+            background: radial-gradient(ellipse at center, #1e293b 0%, #0f172a 75%);
+            border-top: 3px solid rgba(148, 163, 184, 0.25);
+            border-radius: 50% 50% 0 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .orb-wrapper {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .orb-wrapper:hover {
+            transform: translateY(-10px) scale(1.06);
+        }
+        .sphere-3d {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (min-width: 640px) { .sphere-3d { width: 118px; height: 118px; } }
+        .sphere-cyan {
+            background: radial-gradient(circle at 30% 25%, #67e8f9 0%, #0284c7 55%, #0f172a 95%);
+            border: 3px solid rgba(103, 232, 249, 0.8);
+            box-shadow: 0 15px 30px rgba(0, 242, 254, 0.4);
+        }
+        .sphere-emerald {
+            background: radial-gradient(circle at 30% 25%, #6ee7b7 0%, #059669 55%, #062e22 95%);
+            border: 3px solid rgba(110, 231, 183, 0.8);
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.45);
+        }
+        .sphere-pink {
+            background: radial-gradient(circle at 30% 25%, #fda4af 0%, #e11d48 55%, #1e1b4b 95%);
+            border: 3px solid rgba(253, 164, 175, 0.8);
+            box-shadow: 0 15px 30px rgba(255, 89, 100, 0.45);
+        }
+        .sphere-gold {
+            background: radial-gradient(circle at 30% 25%, #fde68a 0%, #d97706 55%, #271206 95%);
+            border: 3px solid rgba(253, 230, 138, 0.8);
+            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.45);
+        }
+        .sphere-purple {
+            background: radial-gradient(circle at 30% 25%, #d8b4fe 0%, #7e22ce 55%, #1e1b4b 95%);
+            border: 3px solid rgba(216, 180, 254, 0.85);
+            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.45);
+        }
+        .btn-3d-cyan {
+            background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+            box-shadow: 0 5px 0 #0369a1, 0 8px 16px rgba(2, 132, 199, 0.4);
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col justify-between relative select-none">
+
+    <div class="stars-bg"></div>
+    <div class="lunar-ground"></div>
+
+    <!-- PANTALLA INICIAL -->
+    <div id="biometricScreen" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-50 flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md p-6 rounded-[2.5rem] text-center border-2 border-cyan-400/40">
+            <span class="bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-bold px-3 py-1 rounded-full">
+                🇦🇷 CENTRE • PROTOTIPO v0.1 (NASA SPACE APPS)
+            </span>
+            <div class="w-24 h-24 mx-auto my-4 sphere-3d sphere-cyan">
+                <span class="text-5xl">🧑‍🚀</span>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-1">Misión Lunar & Marciana 🚀</h2>
+            <p class="text-xs text-slate-300 mb-4">Ingresá tu nombre de Comandante para iniciar el panel de telemetría.</p>
+            <div class="space-y-3 text-left bg-slate-900/90 p-4 rounded-2xl border border-slate-700">
+                <label class="text-xs text-cyan-300 font-semibold block">🌟 Nombre del Comandante:</label>
+                <input type="text" id="regName" placeholder="Ej: Sofía, Mateo..." class="w-full bg-slate-950 border-2 border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white outline-none focus:border-cyan-400">
+                <button type="button" onclick="registerNewUser()" class="btn-3d-cyan w-full py-2.5 text-white font-bold rounded-xl text-sm">
+                    ¡INICIAR PANEL DE MISIÓN! 🛰️
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BARRA SUPERIOR HUD -->
+    <header class="relative z-20 p-3 sm:p-4 flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto w-full gap-2.5">
+        <div class="glass-panel px-4 py-2 rounded-2xl flex items-center justify-between gap-3 w-full lg:w-auto border border-cyan-400/30">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-700 border-2 border-white flex items-center justify-center text-xl">🧑‍🚀</div>
+                <div>
+                    <h1 id="userNameDisplay" class="font-bold text-sm sm:text-base text-white">Comandante Junior</h1>
+                    <p class="text-[11px] text-cyan-300">Build v0.1 • Arquitectura Base & Voz Activa</p>
+                </div>
+            </div>
+            <button type="button" id="btnVoiceToggle" onclick="toggleVoiceMute()" class="bg-cyan-500/20 text-cyan-300 px-3 py-1.5 rounded-xl border border-cyan-400/40 text-xs font-bold">
+                <i id="voiceIcon" class="fa-solid fa-volume-high text-amber-300"></i> <span id="voiceStatusText">Voz: ON</span>
+            </button>
+        </div>
+
+        <div class="glass-panel px-4 py-2 rounded-2xl flex items-center gap-4 text-xs w-full lg:w-auto justify-around border border-white/15">
+            <div><span class="text-slate-400 block text-[9px]">ENERGÍA</span><b class="text-cyan-300">500 qums</b></div>
+            <div class="w-px h-6 bg-white/15"></div>
+            <div><span class="text-slate-400 block text-[9px]">ESCUDO</span><b class="text-amber-300">Básico</b></div>
+            <div class="w-px h-6 bg-white/15"></div>
+            <div><span class="text-slate-400 block text-[9px]">SOPORTE VITAL</span><b class="text-lime-300">100%</b></div>
+        </div>
+    </header>
+
+    <!-- RELATOR GUÍA -->
+    <div class="relative z-20 max-w-2xl mx-auto px-4 w-full text-center my-auto">
+        <div onclick="speakCurrentGuide()" class="glass-panel px-5 py-3.5 rounded-3xl border border-cyan-400/40 inline-flex items-center gap-3.5 cursor-pointer">
+            <div class="text-3xl">🤖</div>
+            <div class="text-left">
+                <p class="text-[10px] uppercase tracking-wider text-amber-300 font-bold">🔊 AstroBot Guía (Tocá para escuchar)</p>
+                <p id="guideMessage" class="text-xs sm:text-sm text-white">Panel base cargado. Seleccioná cualquiera de las 5 esferas para ver el estado de cada módulo.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAS 5 ESFERAS DEL SISTEMA -->
+    <main class="relative z-20 flex flex-col justify-end items-center max-w-6xl mx-auto w-full px-2 pb-6 sm:pb-10">
+        <div class="flex flex-row items-center justify-center w-full gap-2 sm:gap-5">
+            <div onclick="moduleNotice('Esfera 1: Academia Espacial')" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+                <div class="sphere-3d sphere-cyan"><span class="text-3xl sm:text-4xl">🧠</span></div>
+                <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-cyan-400/50 w-full">
+                    <span class="block text-[10px] sm:text-xs font-bold">1. Aprender</span>
+                    <span class="text-[9px] text-amber-300">En construcción</span>
+                </div>
+            </div>
+
+            <div onclick="moduleNotice('Esfera 2: Plastilina Electrónica 60 por 60')" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+                <div class="sphere-3d sphere-emerald"><span class="text-3xl sm:text-4xl">🧲</span></div>
+                <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-emerald-400/50 w-full">
+                    <span class="block text-[10px] sm:text-xs font-bold">2. Plastilina</span>
+                    <span class="text-[9px] text-amber-300">En construcción</span>
+                </div>
+            </div>
+
+            <div onclick="moduleNotice('Esfera 3: Taller de Cápsula con Compensaciones')" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+                <div class="sphere-3d sphere-pink"><span class="text-3xl sm:text-4xl">🛠️</span></div>
+                <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-rose-400/50 w-full">
+                    <span class="block text-[10px] sm:text-xs font-bold">3. Construir</span>
+                    <span class="text-[9px] text-amber-300">En construcción</span>
+                </div>
+            </div>
+
+            <div onclick="moduleNotice('Esfera 4: Simulador de Misión con datos NASA DONKI')" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+                <div class="sphere-3d sphere-gold"><span class="text-3xl sm:text-4xl">🚀</span></div>
+                <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-amber-400/50 w-full">
+                    <span class="block text-[10px] sm:text-xs font-bold">4. Misión</span>
+                    <span class="text-[9px] text-amber-300">En construcción</span>
+                </div>
+            </div>
+
+            <div onclick="moduleNotice('Esfera 5: Simulador de Órbita y Acoplamiento')" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+                <div class="sphere-3d sphere-purple"><span class="text-3xl sm:text-4xl">🛰️</span></div>
+                <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-purple-400/50 w-full">
+                    <span class="block text-[10px] sm:text-xs font-bold">5. Acoplar</span>
+                    <span class="text-[9px] text-amber-300">En construcción</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let voiceEnabled = true;
+        let astronautName = "Comandante Junior";
+
+        function hablarArgentino(texto) {
+            if (!voiceEnabled || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(texto);
+            utter.lang = 'es-AR';
+            utter.rate = 1.03;
+            window.speechSynthesis.speak(utter);
+        }
+
+        function toggleVoiceMute() {
+            voiceEnabled = !voiceEnabled;
+            document.getElementById('voiceStatusText').textContent = voiceEnabled ? "Voz: ON" : "Mudo";
+            if (voiceEnabled) hablarArgentino("Audio activado.");
+        }
+
+        function registerNewUser() {
+            const val = document.getElementById('regName').value.trim();
+            if (val) astronautName = val;
+            document.getElementById('userNameDisplay').textContent = astronautName;
+            document.getElementById('biometricScreen').classList.add('hidden');
+            const msg = `Bienvenido ${astronautName}. Esta es la versión inicial de Centre. Estamos desarrollando los cinco módulos interactivos.`;
+            document.getElementById('guideMessage').textContent = msg;
+            hablarArgentino(msg);
+        }
+
+        function speakCurrentGuide() {
+            hablarArgentino(document.getElementById('guideMessage').textContent);
+        }
+
+        function moduleNotice(nombreModulo) {
+            const msg = `${nombreModulo} está en etapa de desarrollo. Pronto se integrará en la siguiente actualización.`;
+            document.getElementById('guideMessage').textContent = msg;
+            hablarArgentino(msg);
+        }
+    </script>
+</body>
+</html>
