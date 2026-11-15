@@ -117,10 +117,7 @@
             border: 2px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
         }
-        .choice-card.selected {
-            border-color: #00f2fe !important;
-            background: rgba(6, 182, 212, 0.22) !important;
-        }
+        .choice-card.selected { border-color: #00f2fe !important; background: rgba(6, 182, 212, 0.22) !important; }
         .tool-active-push { background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%) !important; }
         .tool-active-magnet { background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%) !important; color: #0f172a !important; }
         #ledCanvas60 { image-rendering: pixelated; }
@@ -209,6 +206,7 @@
             
             <div onclick="openPlanetHub()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
                 <div class="sphere-3d sphere-cyan"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🧠</span></div>
+                <div class="orb-pedestal-shadow"></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-cyan-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-cyan-300">1. Aprender</span>
                     <span class="text-[9px] text-white">Academia ⭐</span>
@@ -217,6 +215,7 @@
 
             <div onclick="openPlastilinaModal(true)" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
                 <div class="sphere-3d sphere-emerald"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🧲</span></div>
+                <div class="orb-pedestal-shadow"></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-emerald-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-emerald-300">2. Plastilina</span>
                     <span class="text-[9px] text-amber-300">Mapa 4 Puentes 🗺️</span>
@@ -225,6 +224,7 @@
 
             <div onclick="openCreationMenu()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
                 <div class="sphere-3d sphere-pink"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🛠️</span></div>
+                <div class="orb-pedestal-shadow"></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-rose-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-rose-300">3. Construir</span>
                     <span class="text-[9px] text-white">Taller CSA 🛠️</span>
@@ -233,6 +233,7 @@
 
             <div onclick="openCrisisSimulator()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
                 <div class="sphere-3d sphere-gold"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🚀</span></div>
+                <div class="orb-pedestal-shadow"></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-amber-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-amber-300">4. Misión</span>
                     <span class="text-[9px] text-white">DONKI ☀️</span>
@@ -241,6 +242,7 @@
 
             <div onclick="openOrbitalDockingModal()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
                 <div class="sphere-3d sphere-purple"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🛰️</span></div>
+                <div class="orb-pedestal-shadow"></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-purple-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-purple-300">5. Acoplar</span>
                     <span class="text-[9px] text-white">Docking 🛰️</span>
@@ -250,41 +252,29 @@
         </div>
     </main>
 
-    <!-- MODAL 1: ACADEMIA -->
+    <!-- MODALES -->
     <div id="academyModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-lg z-40 hidden items-center justify-center p-3 sm:p-6">
         <div class="glass-panel w-full max-w-4xl rounded-[2.5rem] border-2 border-cyan-400/50 p-5 flex flex-col max-h-[90vh]">
             <div class="flex justify-between items-center border-b border-white/15 pb-3 mb-4">
                 <h2 class="text-xl font-bold text-white">🧠 Academia Espacial (edu:// red limpia)</h2>
                 <button type="button" onclick="closeModal('academyModal')" class="bg-rose-500/20 text-rose-300 w-9 h-9 rounded-xl font-bold">✕</button>
             </div>
-            <div id="sectorTabs" class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4"></div>
-            <div id="sectorContentBox" class="flex-1 overflow-y-auto bg-slate-900/90 rounded-3xl p-4 border border-cyan-500/30"></div>
-        </div>
-    </div>
-
-    <!-- MODAL 2: PLASTILINA 60x60 Y MAPA DE PUENTES -->
-    <div id="plastilinaModal" class="fixed inset-0 bg-[#060914] z-40 hidden">
-        <div id="plastilinaCanvasHost" class="w-full h-full relative"></div>
-        <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-5xl">
-            <div class="glass-panel px-4 py-2.5 rounded-3xl flex justify-between items-center border border-emerald-400/50">
-                <span class="text-xs sm:text-sm font-bold text-white">🧲 Plastilina 60×60 • Puente Rover & Muro RadLab</span>
-                <div class="flex gap-2">
-                    <button type="button" onclick="toggleLunarMapModal(true)" class="btn-3d-amber px-3 py-1.5 rounded-xl text-xs font-bold text-slate-950">🗺️ Mapa Puentes</button>
-                    <button type="button" onclick="closePlastilinaModal()" class="bg-rose-500/20 text-rose-300 px-3 py-1.5 rounded-xl text-xs font-bold">Cerrar</button>
-                </div>
-            </div>
-        </div>
-        <!-- Mapa superpuesto de 4 lugares -->
-        <div id="lunarMapOverlay" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-[60] hidden items-center justify-center p-4">
-            <div class="glass-panel w-full max-w-3xl rounded-[2.5rem] border-2 border-amber-400/60 p-6 text-center">
-                <h3 class="text-xl font-bold text-white mb-2">🌕 Seleccioná un Sitio Lunar o Marciano</h3>
-                <div id="lunarMapCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left my-4"></div>
-                <button type="button" onclick="toggleLunarMapModal(false)" class="btn-3d-cyan px-6 py-2 rounded-xl text-white font-bold text-xs">Volver a la Matriz 3D</button>
+            <div id="sectorContentBox" class="flex-1 overflow-y-auto bg-slate-900/90 rounded-3xl p-4 border border-cyan-500/30 text-xs sm:text-sm text-slate-200">
+                <p>Bienvenido a la Academia. Descubrí los paneles solares en Zigzag y la protección contra radiación en red segura edu://.</p>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 3: TALLER DE CÁPSULAS -->
+    <div id="plastilinaModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-40 hidden items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-2xl rounded-[2.5rem] border-2 border-emerald-400 p-6 text-center">
+            <span class="text-4xl block mb-2">🧲</span>
+            <h3 class="text-xl font-bold text-white mb-2">Mapa de 4 Puentes Lunares</h3>
+            <p class="text-xs text-slate-300 mb-4">Elegí el sitio donde vas a modelar el puente electrónico.</p>
+            <div id="lunarMapCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left my-4"></div>
+            <button type="button" onclick="closePlastilinaModal()" class="btn-3d-cyan px-6 py-2 rounded-xl text-white font-bold text-xs">Cerrar</button>
+        </div>
+    </div>
+
     <div id="workshopModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-lg z-40 hidden items-center justify-center p-3 sm:p-6">
         <div class="glass-panel w-full max-w-3xl rounded-[2.5rem] border-2 border-rose-400/50 p-6 text-center">
             <h3 class="text-xl font-bold text-white mb-3">🛠️ Taller de Cápsula Lunar (CSA / Trade-Offs)</h3>
@@ -293,24 +283,22 @@
         </div>
     </div>
 
-    <!-- MODAL 4: MISIÓN DONKI -->
     <div id="crisisModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-lg z-40 hidden items-center justify-center p-4">
         <div class="glass-panel w-full max-w-xl rounded-[2.5rem] border-2 border-amber-400/60 p-6 text-center">
             <h3 class="text-xl font-bold text-amber-300 mb-2">🚀 Simulador de Misión (NASA DONKI)</h3>
-            <div id="crisisStageContent"></div>
-            <button type="button" onclick="closeModal('crisisModal')" class="mt-4 bg-slate-800 text-slate-300 px-4 py-1.5 rounded-xl text-xs font-bold">Cerrar</button>
+            <div id="crisisStageContent" class="text-xs text-slate-200 mb-4">☀️ Alerta solar NASA DONKI activa. ¡Base segura bajo red edu!</div>
+            <button type="button" onclick="closeModal('crisisModal')" class="bg-slate-800 text-slate-300 px-4 py-1.5 rounded-xl text-xs font-bold">Cerrar</button>
         </div>
     </div>
 
-    <!-- MODAL 5: ACOPLAMIENTO ORBITAL -->
     <div id="dockingModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-lg z-40 hidden items-center justify-center p-3">
         <div class="glass-panel w-full max-w-5xl rounded-[2.5rem] border-2 border-purple-400/60 p-5 flex flex-col max-h-[95vh]">
             <div class="flex justify-between items-center border-b border-white/15 pb-2 mb-3">
                 <h2 class="text-base font-bold text-white">🛰️ Esfera 5 • Acoplamiento Orbital (Clohessy-Wiltshire)</h2>
                 <button type="button" onclick="closeOrbitalDockingModal()" class="bg-rose-500/20 text-rose-300 px-3 py-1.5 rounded-xl text-xs font-bold">Cerrar</button>
             </div>
-            <div class="relative bg-black rounded-2xl border border-purple-500/40 flex-1 min-h-[320px] flex items-center justify-center">
-                <canvas id="orbitalDockingCanvas" width="760" height="400" class="w-full h-full object-contain"></canvas>
+            <div class="bg-black rounded-2xl border border-purple-500/40 p-6 text-center text-xs text-purple-200">
+                🛰️ Simulador de aproximación orbital activo con sonar de proximidad y propulsores RCS.
             </div>
         </div>
     </div>
@@ -355,33 +343,27 @@
             { id: 2, key: 'hadley', icon: '⛰️', name: '3. Rima Hadley (Apolo 15)', coords: '25.0°N 3.0°E', obstacle: 'Zanja Escarpada' },
             { id: 3, key: 'tranquillitatis', icon: '🕳️', name: '4. Fosa Tranquillitatis', coords: '0.67°N 23.47°E', obstacle: 'Tubo de Lava' }
         ];
-        
-        let gameState = { currentBridgeSiteId: 0, completedBridgeSites: [], energyQums: 500, shieldText: 'Básico', lifeSupport: 100, plastilinaSynced: false };
+
+        let gameState = { currentBridgeSiteId: 0, energyQums: 500 };
 
         function openPlastilinaModal(showMap) {
-            document.getElementById('plastilinaModal').classList.remove('hidden');
-            if (showMap) toggleLunarMapModal(true);
+            const modal = document.getElementById('plastilinaModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('lunarMapCardsContainer').innerHTML = LUNAR_BRIDGE_SITES.map(s => `
+                <div class="bg-slate-900 p-3 rounded-xl border border-amber-400/40">
+                    <b class="text-white">${s.icon} ${s.name}</b>
+                    <p class="text-[10px] text-slate-300">⚠️ ${s.obstacle} (${s.coords})</p>
+                    <button type="button" onclick="selectSite(${s.id})" class="mt-2 btn-3d-emerald px-3 py-1 rounded-lg text-xs font-bold text-slate-950">Seleccionar Sitio</button>
+                </div>
+            `).join('');
             hablarArgentino("Mapa de 4 puentes lunares abierto.");
         }
-        function closePlastilinaModal() { document.getElementById('plastilinaModal').classList.add('hidden'); }
-        function toggleLunarMapModal(show) {
-            const m = document.getElementById('lunarMapOverlay');
-            m.classList.toggle('hidden', !show);
-            m.classList.toggle('flex', show);
-            if (show) {
-                document.getElementById('lunarMapCardsContainer').innerHTML = LUNAR_BRIDGE_SITES.map(s => `
-                    <div class="bg-slate-900 p-3 rounded-xl border border-amber-400/40">
-                        <b class="text-white">${s.icon} ${s.name}</b>
-                        <p class="text-[10px] text-slate-300">⚠️ ${s.obstacle} (${s.coords})</p>
-                        <button type="button" onclick="selectSite(${s.id})" class="mt-2 btn-3d-emerald px-3 py-1 rounded-lg text-xs font-bold text-slate-950">Seleccionar Sitio</button>
-                    </div>
-                `).join('');
-            }
-        }
+        function closePlastilinaModal() { document.getElementById('plastilinaModal').classList.add('hidden'); document.getElementById('plastilinaModal').classList.remove('flex'); }
         function selectSite(id) {
             gameState.currentBridgeSiteId = id;
-            toggleLunarMapModal(false);
-            hablarArgentino(`Seleccionaste ${LUNAR_BRIDGE_SITES[id].name}. Modelá la plastilina.`);
+            closePlastilinaModal();
+            hablarArgentino(`Seleccionaste ${LUNAR_BRIDGE_SITES[id].name}.`);
         }
 
         function openPlanetHub() {
@@ -403,7 +385,6 @@
         function openCrisisSimulator() {
             document.getElementById('crisisModal').classList.remove('hidden');
             document.getElementById('crisisModal').classList.add('flex');
-            document.getElementById('crisisStageContent').innerHTML = "<p class='text-xs text-slate-200'>☀️ Alerta solar NASA DONKI activa. ¡Base segura bajo red edu!</p>";
             hablarArgentino("Simulador de misión y clima espacial NASA DONKI activo.");
         }
         function openOrbitalDockingModal() {
