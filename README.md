@@ -3,7 +3,7 @@
 **Simulador espacial educativo interactivo (7–12 años) impulsado por ciencia abierta de la NASA, la Agencia Espacial Canadiense (CSA) y el protocolo de red limpia `edu://`.**
 
 🌐 **Simulador en Vivo (GitHub Pages):** [https://maxieme-netizen.github.io/centre/](https://maxieme-netizen.github.io/centre/)  
-📄 **Presentación Oficial (7 Diapositivas):** [`Demo_Centre.pdf`](./Demo_Centre.pdf)  
+📄 **Presentación Oficial (7 Diapositivas):** [`Demo Centre.pdf`](./Demo%20Centre.pdf)  
 🏆 **Competencia:** NASA Space Apps Challenge 2026 — Sede Santiago del Estero, Argentina 🇦🇷
 
 ---
@@ -46,12 +46,9 @@ En lugar de aplicar filtros o controles parentales reactivos que fallan sobre un
 
 ---
 
-## 👥 Equipo Centre (Santiago del Estero, Argentina)
+## 👤 Autor y Desarrollador (Santiago del Estero, Argentina)
 
-* **Maximiliano Esteban Maidana** — Fundador, Arquitectura del Sistema, Métrica `qum` y Protocolo `edu://`
-  --Diseño Gráfico, Animación 3D y Producción Audiovisual, Desarrollo de Software y Diseño Pedagógico
-ciencia de Datos,    Ciencia de Datos e Inteligencia Artificial
-* **Francisco Fernández** — Instalaciones Eléctricas y Sistemas Fotovoltaicos
+* **Maximiliano Esteban Maidana** — Creador y Desarrollador Integral (Fundador de *Centre Soluciones en Energía*). Diseño conceptual, arquitectura WebGL/Three.js, integración de datos abiertos NASA/CSA, unidad fotónica `qum` y protocolo educativo `edu://`.
 
 ---
 
