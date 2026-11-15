@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centre • Esferas 19: Misión Lunar & Marciana (v0.5.2 Definitivo)</title>
+    <title>Centre • Esferas 19: Misión Lunar & Marciana • NASA DONKI / RadLab / Mars Trek / CSA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
@@ -16,11 +17,12 @@
             background-color: #060916;
             background-image: 
                 radial-gradient(circle at 12% 18%, rgba(0, 242, 254, 0.14) 0%, transparent 38%),
-                radial-gradient(circle at 88% 82%, rgba(16, 185, 129, 0.14) 0%, transparent 38%),
+                radial-gradient(circle at 88% 82%, rgba(255, 89, 100, 0.14) 0%, transparent 38%),
                 radial-gradient(circle at 50% 50%, #101736 0%, #050711 100%);
             color: white;
             margin: 0;
         }
+        .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
         .stars-bg {
             position: fixed;
             inset: 0;
@@ -50,7 +52,8 @@
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .orb-wrapper:hover {
-            transform: translateY(-10px) scale(1.06);
+            transform: translateY(-12px) scale(1.07);
+            z-index: 30;
         }
         .sphere-3d {
             width: 84px;
@@ -87,17 +90,42 @@
             border: 3px solid rgba(216, 180, 254, 0.85);
             box-shadow: 0 15px 30px rgba(168, 85, 247, 0.45);
         }
-        .btn-3d-emerald {
-            background: linear-gradient(180deg, #34d399 0%, #059669 100%);
-            box-shadow: 0 4px 0 #065f46, 0 6px 14px rgba(5, 150, 105, 0.4);
+        .orbital-ring {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 255, 255, 0.35);
+            animation: spinRing 14s linear infinite;
+            pointer-events: none;
         }
+        @keyframes spinRing { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .orb-pedestal-shadow {
+            width: 75%;
+            height: 14px;
+            background: radial-gradient(ellipse at center, rgba(0, 242, 254, 0.45) 0%, transparent 70%);
+            border-radius: 50%;
+            margin-top: 8px;
+        }
+        .icon-3d-inner { filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.55)); z-index: 10; }
+        .btn-3d-cyan { background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%); box-shadow: 0 5px 0 #0369a1, 0 8px 16px rgba(2, 132, 199, 0.4); }
+        .btn-3d-emerald { background: linear-gradient(180deg, #34d399 0%, #059669 100%); box-shadow: 0 5px 0 #065f46, 0 8px 16px rgba(5, 150, 105, 0.4); }
+        .btn-3d-pink { background: linear-gradient(180deg, #fb7185 0%, #e11d48 100%); box-shadow: 0 5px 0 #9f1239, 0 8px 16px rgba(225, 29, 72, 0.4); }
+        .btn-3d-amber { background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%); box-shadow: 0 5px 0 #92400e, 0 8px 16px rgba(217, 119, 6, 0.4); }
         .glass-panel {
             background: rgba(15, 23, 42, 0.88);
             backdrop-filter: blur(16px);
             border: 2px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
         }
-        .mono-font { font-family: 'JetBrains Mono', monospace; }
+        .choice-card.selected {
+            border-color: #00f2fe !important;
+            background: rgba(6, 182, 212, 0.22) !important;
+        }
+        .tool-active-push { background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%) !important; }
+        .tool-active-magnet { background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%) !important; color: #0f172a !important; }
+        #ledCanvas60 { image-rendering: pixelated; }
+        @keyframes pulsePin { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.22); } }
+        .lunar-pin { position: absolute; transform: translate(-50%, -50%); animation: pulsePin 2s infinite ease-in-out; cursor: pointer; }
     </style>
 </head>
 <body class="h-screen w-screen flex flex-col justify-between relative select-none">
@@ -105,22 +133,36 @@
     <div class="stars-bg"></div>
     <div class="lunar-ground"></div>
 
-    <!-- PANTALLA INICIAL -->
+    <!-- PANTALLA DE BIENVENIDA Y ESCÁNER ADN -->
     <div id="biometricScreen" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-50 flex items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-md p-6 rounded-[2.5rem] text-center border-2 border-cyan-400/40">
-            <span class="bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-bold px-3 py-1 rounded-full">
-                🇦🇷 CENTRE • edu:// & NASA SPACE APPS
-            </span>
-            <div class="w-24 h-24 mx-auto my-4 sphere-3d sphere-cyan">
-                <span class="text-5xl">🚀</span>
+        <div class="glass-panel w-full max-w-md p-6 sm:p-7 rounded-[2.5rem] text-center border-2 border-cyan-400/40 relative">
+            <div class="flex justify-between items-center mb-3">
+                <span class="bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-bold px-3 py-1 rounded-full">
+                    🇦🇷 RED edu:// • MODO SEGURO
+                </span>
+                <button type="button" onclick="speakWelcomeIntro()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 animate-bounce">
+                    <i class="fa-solid fa-volume-high"></i> 🔊 Audio Inicial
+                </button>
             </div>
-            <h2 class="text-2xl font-bold text-white mb-1">Misión Lunar & Marciana</h2>
-            <p class="text-xs text-slate-300 mb-4">Simulador educativo interactivo (7–12 años).</p>
-            <div class="space-y-3 text-left bg-slate-900/90 p-4 rounded-2xl border border-slate-700">
+            <div class="relative w-24 h-24 mx-auto mb-3 flex items-center justify-center">
+                <div class="sphere-3d sphere-cyan !w-24 !h-24">
+                    <span id="selectedAvatarPreview" class="text-4xl icon-3d-inner">🧑‍🚀</span>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-1">Centre • Esferas 19 🚀</h2>
+            <p class="text-xs text-slate-300 mb-3">Simulador espacial interactivo con red limpia edu:// (7–12 años).</p>
+            
+            <div class="flex justify-center gap-2 mb-3">
+                <button type="button" onclick="selectAvatar('🧑‍🚀')" class="avatar-btn w-10 h-10 rounded-xl bg-slate-800 border-2 border-cyan-400 text-xl">🧑‍🚀</button>
+                <button type="button" onclick="selectAvatar('👩‍🚀')" class="avatar-btn w-10 h-10 rounded-xl bg-slate-800 border-2 border-slate-700 text-xl">👩‍🚀</button>
+                <button type="button" onclick="selectAvatar('🤖')" class="avatar-btn w-10 h-10 rounded-xl bg-slate-800 border-2 border-slate-700 text-xl">🤖</button>
+            </div>
+
+            <div class="space-y-2.5 text-left bg-slate-900/90 p-3.5 rounded-2xl border border-slate-700">
                 <label class="text-xs text-cyan-300 font-semibold block">🌟 Nombre del Comandante:</label>
                 <input type="text" id="regName" placeholder="Ej: Sofía, Mateo..." class="w-full bg-slate-950 border-2 border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white outline-none focus:border-cyan-400">
-                <button type="button" onclick="registerNewUser()" class="btn-3d-emerald w-full py-2.5 text-white font-bold rounded-xl text-sm">
-                    ¡INICIAR SIMULADOR! 🛰️
+                <button type="button" onclick="registerNewUser()" class="btn-3d-cyan w-full py-2.5 text-white font-bold rounded-xl text-sm">
+                    ¡INICIAR SIMULADOR edu://! 🛰️
                 </button>
             </div>
         </div>
@@ -130,23 +172,23 @@
     <header class="relative z-20 p-3 sm:p-4 flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto w-full gap-2.5">
         <div class="glass-panel px-4 py-2 rounded-2xl flex items-center justify-between gap-3 w-full lg:w-auto border border-cyan-400/30">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-emerald-700 border-2 border-white flex items-center justify-center text-xl">🧑‍🚀</div>
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-700 border-2 border-white flex items-center justify-center text-xl" id="headerAvatar">🧑‍🚀</div>
                 <div>
                     <h1 id="userNameDisplay" class="font-bold text-sm sm:text-base text-white">Comandante Junior</h1>
-                    <p class="text-[11px] text-cyan-300">Conexión edu:// • Voz Argentina (es-AR)</p>
+                    <p class="text-[11px] text-cyan-300">Protocolo: <span class="text-amber-300 font-bold">edu://activo</span></p>
                 </div>
             </div>
             <button type="button" id="btnVoiceToggle" onclick="toggleVoiceMute()" class="bg-cyan-500/20 text-cyan-300 px-3 py-1.5 rounded-xl border border-cyan-400/40 text-xs font-bold">
-                <i id="voiceIcon" class="fa-solid fa-volume-high text-amber-300"></i> <span id="voiceStatusText">Voz AR: ON</span>
+                <i id="voiceIcon" class="fa-solid fa-volume-high text-amber-300"></i> <span id="voiceStatusText">Voz: ON</span>
             </button>
         </div>
 
         <div class="glass-panel px-4 py-2 rounded-2xl flex items-center gap-4 text-xs w-full lg:w-auto justify-around border border-white/15">
             <div><span class="text-slate-400 block text-[9px]">ENERGÍA</span><b id="resEnergy" class="text-cyan-300">500 qums</b></div>
             <div class="w-px h-6 bg-white/15"></div>
-            <div><span class="text-slate-400 block text-[9px]">ESTADO GENERAL</span><b class="text-emerald-300">Óptimo ⭐</b></div>
+            <div><span class="text-slate-400 block text-[9px]">PUENTES</span><b id="resBridges" class="text-emerald-300">0/4 Sitios</b></div>
             <div class="w-px h-6 bg-white/15"></div>
-            <div><span class="text-slate-400 block text-[9px]">RED</span><b class="text-amber-300 mono-font">edu://secure</b></div>
+            <div><span class="text-slate-400 block text-[9px]">ESCUDO</span><b id="resShield" class="text-amber-300">Básico</b></div>
         </div>
     </header>
 
@@ -155,223 +197,220 @@
         <div onclick="speakCurrentGuide()" class="glass-panel px-5 py-3.5 rounded-3xl border border-cyan-400/40 inline-flex items-center gap-3.5 cursor-pointer">
             <div class="text-3xl">🤖</div>
             <div class="text-left">
-                <p class="text-[10px] uppercase tracking-wider text-cyan-300 font-bold">🔊 AstroBot Guía Argentino (Tocá para escuchar)</p>
-                <p id="guideMessage" class="text-xs sm:text-sm text-white">¡Hola Comandante! Tocá cualquier esfera para abrir su simulador interactivo.</p>
+                <p class="text-[10px] uppercase tracking-wider text-amber-300 font-bold">🔊 AstroBot Guía Argentino (Tocá para escuchar)</p>
+                <p id="guideMessage" class="text-xs sm:text-sm text-white">¡Tocá la <b>Esfera 1 (Academia)</b> para aprender o la <b>Esfera 2 (Plastilina)</b> para abrir el Mapa de Puentes Lunares!</p>
             </div>
         </div>
     </div>
 
-    <!-- LAS 5 ESFERAS DEL SISTEMA -->
+    <!-- LAS 5 ESFERAS 3D -->
     <main class="relative z-20 flex flex-col justify-end items-center max-w-6xl mx-auto w-full px-2 pb-6 sm:pb-10">
         <div class="flex flex-row items-center justify-center w-full gap-2 sm:gap-5">
+            
             <div onclick="openPlanetHub()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
-                <div class="sphere-3d sphere-cyan"><span class="text-3xl sm:text-4xl">🧠</span></div>
+                <div class="sphere-3d sphere-cyan"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🧠</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-cyan-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-cyan-300">1. Aprender</span>
                     <span class="text-[9px] text-white">Academia ⭐</span>
                 </div>
             </div>
 
-            <div onclick="openClayModal()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
-                <div class="sphere-3d sphere-emerald"><span class="text-3xl sm:text-4xl">🧲</span></div>
+            <div onclick="openPlastilinaModal(true)" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+                <div class="sphere-3d sphere-emerald"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🧲</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-emerald-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-emerald-300">2. Plastilina</span>
-                    <span class="text-[9px] text-amber-300">Matriz 3D 🟢</span>
+                    <span class="text-[9px] text-amber-300">Mapa 4 Puentes 🗺️</span>
                 </div>
             </div>
 
-            <div onclick="openHabitatModal()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
-                <div class="sphere-3d sphere-pink"><span class="text-3xl sm:text-4xl">🛠️</span></div>
+            <div onclick="openCreationMenu()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+                <div class="sphere-3d sphere-pink"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🛠️</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-rose-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-rose-300">3. Construir</span>
-                    <span class="text-[9px] text-white">Hábitat CSA 🛠️</span>
+                    <span class="text-[9px] text-white">Taller CSA 🛠️</span>
                 </div>
             </div>
 
-            <div onclick="openMissionModal()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
-                <div class="sphere-3d sphere-gold"><span class="text-3xl sm:text-4xl">🚀</span></div>
+            <div onclick="openCrisisSimulator()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+                <div class="sphere-3d sphere-gold"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🚀</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-amber-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-amber-300">4. Misión</span>
                     <span class="text-[9px] text-white">DONKI ☀️</span>
                 </div>
             </div>
 
-            <div onclick="openDockingModal()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
-                <div class="sphere-3d sphere-purple"><span class="text-3xl sm:text-4xl">🛰️</span></div>
+            <div onclick="openOrbitalDockingModal()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+                <div class="sphere-3d sphere-purple"><div class="orbital-ring"></div><span class="text-3xl sm:text-4xl">🛰️</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-purple-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-purple-300">5. Acoplar</span>
                     <span class="text-[9px] text-white">Docking 🛰️</span>
                 </div>
             </div>
+
         </div>
     </main>
 
-    <!-- MODAL 1: ACADEMIA ESPACIAL -->
+    <!-- MODAL 1: ACADEMIA -->
     <div id="academyModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-lg z-40 hidden items-center justify-center p-3 sm:p-6">
-        <div class="glass-panel w-full max-w-4xl rounded-[2.5rem] border-2 border-cyan-400/50 p-5 sm:p-7 flex flex-col max-h-[90vh]">
+        <div class="glass-panel w-full max-w-4xl rounded-[2.5rem] border-2 border-cyan-400/50 p-5 flex flex-col max-h-[90vh]">
             <div class="flex justify-between items-center border-b border-white/15 pb-3 mb-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-2xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-2xl">🧠</div>
-                    <div>
-                        <h2 class="text-lg sm:text-2xl font-bold text-white">Academia Espacial (edu://)</h2>
-                        <p class="text-xs text-cyan-300">Aprendizaje guiado por voz</p>
-                    </div>
-                </div>
-                <button type="button" onclick="closeAcademyModal()" class="bg-rose-500/25 text-rose-300 w-10 h-10 rounded-2xl font-bold">✕</button>
+                <h2 class="text-xl font-bold text-white">🧠 Academia Espacial (edu:// red limpia)</h2>
+                <button type="button" onclick="closeModal('academyModal')" class="bg-rose-500/20 text-rose-300 w-9 h-9 rounded-xl font-bold">✕</button>
             </div>
             <div id="sectorTabs" class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4"></div>
-            <div id="sectorContentBox" class="flex-1 overflow-y-auto bg-slate-900/90 rounded-3xl p-4 sm:p-6 border border-cyan-500/30"></div>
+            <div id="sectorContentBox" class="flex-1 overflow-y-auto bg-slate-900/90 rounded-3xl p-4 border border-cyan-500/30"></div>
         </div>
     </div>
 
-    <!-- MODAL 2: PLASTILINA 3D -->
-    <div id="clayModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-40 hidden items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-md p-6 rounded-[2rem] border-2 border-emerald-400 text-center">
-            <span class="text-4xl block mb-2">🧲</span>
-            <h3 class="text-xl font-bold text-white mb-2">Matriz 3D 60x60 Activa</h3>
-            <p class="text-xs text-slate-300 mb-4">La plastilina electrónica ya está lista para moldear tu puente o muro RadLab.</p>
-            <button type="button" onclick="closeClayModal()" class="btn-3d-emerald px-5 py-2 text-white font-bold rounded-xl text-xs">¡Entendido!</button>
-        </div>
-    </div>
-
-    <!-- MODAL 3: TALLER DE HÁBITATS (CSA) -->
-    <div id="habitatModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-40 hidden items-center justify-center p-3 sm:p-6">
-        <div class="glass-panel w-full max-w-3xl rounded-[2rem] border-2 border-rose-400/50 p-5 flex flex-col max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b border-white/15 pb-3 mb-4">
-                <h2 class="text-lg font-bold text-white">🛠️ Esfera 3 • Taller de Hábitats (CSA / Trade-Offs)</h2>
-                <button type="button" onclick="closeHabitatModal()" class="bg-rose-500/25 text-rose-300 w-9 h-9 rounded-xl font-bold">✕</button>
+    <!-- MODAL 2: PLASTILINA 60x60 Y MAPA DE PUENTES -->
+    <div id="plastilinaModal" class="fixed inset-0 bg-[#060914] z-40 hidden">
+        <div id="plastilinaCanvasHost" class="w-full h-full relative"></div>
+        <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-5xl">
+            <div class="glass-panel px-4 py-2.5 rounded-3xl flex justify-between items-center border border-emerald-400/50">
+                <span class="text-xs sm:text-sm font-bold text-white">🧲 Plastilina 60×60 • Puente Rover & Muro RadLab</span>
+                <div class="flex gap-2">
+                    <button type="button" onclick="toggleLunarMapModal(true)" class="btn-3d-amber px-3 py-1.5 rounded-xl text-xs font-bold text-slate-950">🗺️ Mapa Puentes</button>
+                    <button type="button" onclick="closePlastilinaModal()" class="bg-rose-500/20 text-rose-300 px-3 py-1.5 rounded-xl text-xs font-bold">Cerrar</button>
+                </div>
             </div>
-            <div class="space-y-4 text-xs sm:text-sm">
-                <div class="bg-slate-900 p-3 rounded-xl border border-slate-700">
-                    <label class="block font-bold text-cyan-300 mb-1">🛡️ Blindaje de Regolito:</label>
-                    <input type="range" id="habShield" min="1" max="3" value="2" class="w-full accent-cyan-400">
-                </div>
-                <div class="bg-slate-900 p-3 rounded-xl border border-slate-700">
-                    <label class="block font-bold text-emerald-300 mb-1">🌱 Bio-Huerta CSA:</label>
-                    <input type="range" id="habBio" min="1" max="3" value="2" class="w-full accent-emerald-400">
-                </div>
-                <div class="bg-slate-900 p-3 rounded-xl border border-slate-700 flex justify-between items-center">
-                    <span>Costo total estimado: <b id="habCost" class="text-amber-300 mono-font">320 qums</b></span>
-                    <button type="button" onclick="confirmHabitat()" class="btn-3d-emerald px-4 py-2 rounded-xl text-white font-bold">¡Guardar Hábitat (+200 qums)!</button>
-                </div>
+        </div>
+        <!-- Mapa superpuesto de 4 lugares -->
+        <div id="lunarMapOverlay" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-[60] hidden items-center justify-center p-4">
+            <div class="glass-panel w-full max-w-3xl rounded-[2.5rem] border-2 border-amber-400/60 p-6 text-center">
+                <h3 class="text-xl font-bold text-white mb-2">🌕 Seleccioná un Sitio Lunar o Marciano</h3>
+                <div id="lunarMapCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left my-4"></div>
+                <button type="button" onclick="toggleLunarMapModal(false)" class="btn-3d-cyan px-6 py-2 rounded-xl text-white font-bold text-xs">Volver a la Matriz 3D</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 4: MISIÓN / NASA DONKI -->
-    <div id="missionModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-40 hidden items-center justify-center p-3 sm:p-6">
-        <div class="glass-panel w-full max-w-xl rounded-[2rem] border-2 border-amber-400/50 p-6 text-center">
-            <span class="text-4xl block mb-2">☀️</span>
-            <h3 class="text-xl font-bold text-white mb-2">Esfera 4 • Clima Espacial (NASA DONKI)</h3>
-            <p class="text-xs text-slate-300 mb-4">Simulación de tormentas solares en tiempo real para proteger los paneles en Zigzag.</p>
-            <div class="bg-slate-900 p-3 rounded-xl border border-amber-500/40 text-xs text-amber-200 mb-4">
-                ⚡ Alerta de fulguración clase X detectada por satélite SOHO. ¡Activar modo escudo magnético!
-            </div>
-            <button type="button" onclick="closeMissionModal()" class="bg-amber-500 text-slate-950 px-5 py-2 font-bold rounded-xl text-xs">Cerrar Alerta</button>
+    <!-- MODAL 3: TALLER DE CÁPSULAS -->
+    <div id="workshopModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-lg z-40 hidden items-center justify-center p-3 sm:p-6">
+        <div class="glass-panel w-full max-w-3xl rounded-[2.5rem] border-2 border-rose-400/50 p-6 text-center">
+            <h3 class="text-xl font-bold text-white mb-3">🛠️ Taller de Cápsula Lunar (CSA / Trade-Offs)</h3>
+            <p class="text-xs text-slate-300 mb-4">Diseñá tu base equilibrando energía y blindaje.</p>
+            <button type="button" onclick="saveCapsuleDesign()" class="btn-3d-pink px-6 py-2.5 rounded-xl font-bold text-sm text-white">✅ Guardar Cápsula y Avanzar</button>
+        </div>
+    </div>
+
+    <!-- MODAL 4: MISIÓN DONKI -->
+    <div id="crisisModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-lg z-40 hidden items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-xl rounded-[2.5rem] border-2 border-amber-400/60 p-6 text-center">
+            <h3 class="text-xl font-bold text-amber-300 mb-2">🚀 Simulador de Misión (NASA DONKI)</h3>
+            <div id="crisisStageContent"></div>
+            <button type="button" onclick="closeModal('crisisModal')" class="mt-4 bg-slate-800 text-slate-300 px-4 py-1.5 rounded-xl text-xs font-bold">Cerrar</button>
         </div>
     </div>
 
     <!-- MODAL 5: ACOPLAMIENTO ORBITAL -->
-    <div id="dockingModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-40 hidden items-center justify-center p-3 sm:p-6">
-        <div class="glass-panel w-full max-w-xl rounded-[2rem] border-2 border-purple-400/50 p-6 text-center">
-            <span class="text-4xl block mb-2">🛰️</span>
-            <h3 class="text-xl font-bold text-white mb-2">Esfera 5 • Acoplamiento Orbital (Docking)</h3>
-            <p class="text-xs text-slate-300 mb-4">Física orbital de Clohessy-Wiltshire con sonar de proximidad acústico.</p>
-            <div class="bg-slate-900 p-3 rounded-xl border border-purple-500/40 text-xs text-purple-200 mb-4">
-                🎯 Distancia de aproximación: <b>12.4 metros</b> • Velocidad relativa: <b>0.12 m/s (Segura)</b>
+    <div id="dockingModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-lg z-40 hidden items-center justify-center p-3">
+        <div class="glass-panel w-full max-w-5xl rounded-[2.5rem] border-2 border-purple-400/60 p-5 flex flex-col max-h-[95vh]">
+            <div class="flex justify-between items-center border-b border-white/15 pb-2 mb-3">
+                <h2 class="text-base font-bold text-white">🛰️ Esfera 5 • Acoplamiento Orbital (Clohessy-Wiltshire)</h2>
+                <button type="button" onclick="closeOrbitalDockingModal()" class="bg-rose-500/20 text-rose-300 px-3 py-1.5 rounded-xl text-xs font-bold">Cerrar</button>
             </div>
-            <button type="button" onclick="closeDockingModal()" class="bg-purple-500 text-white px-5 py-2 font-bold rounded-xl text-xs">Simular Acoplamiento Exitoso</button>
+            <div class="relative bg-black rounded-2xl border border-purple-500/40 flex-1 min-h-[320px] flex items-center justify-center">
+                <canvas id="orbitalDockingCanvas" width="760" height="400" class="w-full h-full object-contain"></canvas>
+            </div>
         </div>
     </div>
 
     <script>
         let voiceEnabled = true;
-        let astronautName = "Comandante Junior";
-        let energyQums = 500;
-        let activeSector = 0;
-        let preferredArVoice = null;
-
-        function loadArgentineVoice() {
+        let preferredVoice = null;
+        function loadSystemVoices() {
             if (!('speechSynthesis' in window)) return;
             const voices = window.speechSynthesis.getVoices();
-            preferredArVoice = voices.find(v => v.lang.toLowerCase() === 'es-ar') ||
-                               voices.find(v => v.lang.toLowerCase().includes('es-419') || v.lang.toLowerCase().startsWith('es'));
+            preferredVoice = voices.find(v => v.lang && v.lang.toLowerCase().replace('_','-') === 'es-ar') || voices.find(v => v.lang && v.lang.toLowerCase().startsWith('es'));
         }
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = loadArgentineVoice;
-            loadArgentineVoice();
-        }
-
-        function hablarArgentino(texto) {
+        if ('speechSynthesis' in window) { loadSystemVoices(); window.speechSynthesis.onvoiceschanged = loadSystemVoices; }
+        
+        function hablarArgentino(txt) {
             if (!voiceEnabled || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
-            const utter = new SpeechSynthesisUtterance(texto);
-            utter.lang = 'es-AR';
-            if (preferredArVoice) utter.voice = preferredArVoice;
-            utter.rate = 1.04;
-            window.speechSynthesis.pitch = 1.02;
-            window.speechSynthesis.speak(utter);
+            const u = new SpeechSynthesisUtterance(txt);
+            if (preferredVoice) { u.voice = preferredVoice; u.lang = preferredVoice.lang; } else { u.lang = 'es-ES'; }
+            window.speechSynthesis.speak(u);
         }
 
         function toggleVoiceMute() {
             voiceEnabled = !voiceEnabled;
-            document.getElementById('voiceStatusText').textContent = voiceEnabled ? "Voz AR: ON" : "Mudo";
-            if (voiceEnabled) hablarArgentino("¡Listo che! Voz argentina activada.");
+            document.getElementById('voiceStatusText').textContent = voiceEnabled ? "Voz: ON" : "Mudo";
+            if (voiceEnabled) hablarArgentino("Voz argentina activada en red edu.");
         }
 
         function registerNewUser() {
             const val = document.getElementById('regName').value.trim();
-            if (val) astronautName = val;
-            document.getElementById('userNameDisplay').textContent = astronautName;
+            if (val) document.getElementById('userNameDisplay').textContent = val;
             document.getElementById('biometricScreen').classList.add('hidden');
-            hablarArgentino(`¡Hola ${astronautName}! Ya podés explorar todas las esferas del simulador.`);
+            hablarArgentino("¡Listo Comandante! Ya podés explorar las cinco esferas del simulador con protocolo edu.");
         }
 
-        function speakCurrentGuide() {
-            hablarArgentino(document.getElementById('guideMessage').textContent);
-        }
+        function selectAvatar(e) { document.getElementById('selectedAvatarPreview').textContent = e; document.getElementById('headerAvatar').textContent = e; }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); document.getElementById(id).classList.remove('flex'); }
 
-        // Datos Academia
-        const ACADEMY_SECTORS = [
-            { id: 0, title: "Energía Solar en Zigzag (70°)", story: "Atrapamos luz todo el día y el polvo lunar resbala." },
-            { id: 1, title: "Súper Baterías Lunares", story: "Guardamos energía para los 14 días de noche." },
-            { id: 2, title: "Escudos NASA RadLab", story: "Regolito impreso en 3D contra la radiación." },
-            { id: 3, title: "Bio-Huerta CSA", story: "Oxígeno puro y alimentos frescos hidropónicos." },
-            { id: 4, title: "Red edu:// Segura", story: "Internet limpia sin control parental fallido." }
+        const LUNAR_BRIDGE_SITES = [
+            { id: 0, key: 'shackleton', icon: '🌑', name: '1. Cráter Shackleton (Polo Sur)', coords: '89.9°S 0.0°E', obstacle: 'Abismo Glacial' },
+            { id: 1, key: 'schroteri', icon: '🐍', name: '2. Vallis Schröteri', coords: '26.2°N 50.8°W', obstacle: 'Cañón Volcánico' },
+            { id: 2, key: 'hadley', icon: '⛰️', name: '3. Rima Hadley (Apolo 15)', coords: '25.0°N 3.0°E', obstacle: 'Zanja Escarpada' },
+            { id: 3, key: 'tranquillitatis', icon: '🕳️', name: '4. Fosa Tranquillitatis', coords: '0.67°N 23.47°E', obstacle: 'Tubo de Lava' }
         ];
+        
+        let gameState = { currentBridgeSiteId: 0, completedBridgeSites: [], energyQums: 500, shieldText: 'Básico', lifeSupport: 100, plastilinaSynced: false };
+
+        function openPlastilinaModal(showMap) {
+            document.getElementById('plastilinaModal').classList.remove('hidden');
+            if (showMap) toggleLunarMapModal(true);
+            hablarArgentino("Mapa de 4 puentes lunares abierto.");
+        }
+        function closePlastilinaModal() { document.getElementById('plastilinaModal').classList.add('hidden'); }
+        function toggleLunarMapModal(show) {
+            const m = document.getElementById('lunarMapOverlay');
+            m.classList.toggle('hidden', !show);
+            m.classList.toggle('flex', show);
+            if (show) {
+                document.getElementById('lunarMapCardsContainer').innerHTML = LUNAR_BRIDGE_SITES.map(s => `
+                    <div class="bg-slate-900 p-3 rounded-xl border border-amber-400/40">
+                        <b class="text-white">${s.icon} ${s.name}</b>
+                        <p class="text-[10px] text-slate-300">⚠️ ${s.obstacle} (${s.coords})</p>
+                        <button type="button" onclick="selectSite(${s.id})" class="mt-2 btn-3d-emerald px-3 py-1 rounded-lg text-xs font-bold text-slate-950">Seleccionar Sitio</button>
+                    </div>
+                `).join('');
+            }
+        }
+        function selectSite(id) {
+            gameState.currentBridgeSiteId = id;
+            toggleLunarMapModal(false);
+            hablarArgentino(`Seleccionaste ${LUNAR_BRIDGE_SITES[id].name}. Modelá la plastilina.`);
+        }
 
         function openPlanetHub() {
-            const m = document.getElementById('academyModal');
-            m.classList.remove('hidden'); m.classList.add('flex');
-            renderAcademy();
-            hablarArgentino("Academia espacial abierta. Aprendé los secretos de la base.");
+            document.getElementById('academyModal').classList.remove('hidden');
+            document.getElementById('academyModal').classList.add('flex');
+            hablarArgentino("Academia espacial educativa en red edu.");
         }
-        function closeAcademyModal() {
-            document.getElementById('academyModal').classList.add('hidden');
-            document.getElementById('academyModal').classList.remove('flex');
+        function openCreationMenu() {
+            document.getElementById('workshopModal').classList.remove('hidden');
+            document.getElementById('workshopModal').classList.add('flex');
+            hablarArgentino("Taller de cápsulas abierto.");
         }
-        function renderAcademy() {
-            document.getElementById('sectorContentBox').innerHTML = ACADEMY_SECTORS.map(s => `
-                <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 mb-2">
-                    <h4 class="font-bold text-cyan-300 text-sm">🛰️ ${s.title}</h4>
-                    <p class="text-xs text-slate-200 mt-1">${s.story}</p>
-                </div>
-            `).join('');
+        function saveCapsuleDesign() {
+            gameState.energyQums += 200;
+            document.getElementById('resEnergy').textContent = gameState.energyQums + " qums";
+            closeModal('workshopModal');
+            hablarArgentino("Cápsula guardada con éxito.");
         }
-
-        // Modales
-        function openClayModal() { document.getElementById('clayModal').classList.remove('hidden'); document.getElementById('clayModal').classList.add('flex'); hablarArgentino("Matriz de plastilina 3D abierta."); }
-        function closeClayModal() { document.getElementById('clayModal').classList.add('hidden'); document.getElementById('clayModal').classList.remove('flex'); }
-
-        function openHabitatModal() { document.getElementById('habitatModal').classList.remove('hidden'); document.getElementById('habitatModal').classList.add('flex'); hablarArgentino("Taller de hábitats CSA abierto."); }
-        function closeHabitatModal() { document.getElementById('habitatModal').classList.add('hidden'); document.getElementById('habitatModal').classList.remove('flex'); }
-        function confirmHabitat() { energyQums += 200; document.getElementById('resEnergy').textContent = energyQums + " qums"; closeHabitatModal(); hablarArgentino("¡Hábitat guardado! Ganaste doscientos qums."); }
-
-        function openMissionModal() { document.getElementById('missionModal').classList.remove('hidden'); document.getElementById('missionModal').classList.add('flex'); hablarArgentino("Alerta de clima espacial NASA DONKI."); }
-        function closeMissionModal() { document.getElementById('missionModal').classList.add('hidden'); document.getElementById('missionModal').classList.remove('flex'); }
-
-        function openDockingModal() { document.getElementById('dockingModal').classList.remove('hidden'); document.getElementById('dockingModal').classList.add('flex'); hablarArgentino("Simulador de acoplamiento orbital activo."); }
-        function closeDockingModal() { document.getElementById('dockingModal').classList.add('hidden'); document.getElementById('dockingModal').classList.remove('flex'); }
+        function openCrisisSimulator() {
+            document.getElementById('crisisModal').classList.remove('hidden');
+            document.getElementById('crisisModal').classList.add('flex');
+            document.getElementById('crisisStageContent').innerHTML = "<p class='text-xs text-slate-200'>☀️ Alerta solar NASA DONKI activa. ¡Base segura bajo red edu!</p>";
+            hablarArgentino("Simulador de misión y clima espacial NASA DONKI activo.");
+        }
+        function openOrbitalDockingModal() {
+            document.getElementById('dockingModal').classList.remove('hidden');
+            document.getElementById('dockingModal').classList.add('flex');
+            hablarArgentino("Simulador de acoplamiento orbital activo.");
+        }
     </script>
 </body>
 </html>
