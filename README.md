@@ -49,12 +49,8 @@ En lugar de aplicar filtros o controles parentales reactivos que fallan sobre un
 ## 👥 Equipo Centre (Santiago del Estero, Argentina)
 
 * **Maximiliano Esteban Maidana** — Fundador, Arquitectura del Sistema, Métrica `qum` y Protocolo `edu://`
-* **Mariano Olivares** — Ingeniería Electrónica y Desarrollo de Hardware
-* **Daniela Fernández** — Marco Regulatorio, Legal y Modelo de Negocio
-* **Carlos Fabri** — Diseño Gráfico, Animación 3D y Producción Audiovisual
-* **Celeste** — Desarrollo de Software y Diseño Pedagógico
-* **Carlos Bucci** — Hardware y Ciencia de Datos
-* **Anna Malagueño** — Ciencia de Datos e Inteligencia Artificial
+  --Diseño Gráfico, Animación 3D y Producción Audiovisual, Desarrollo de Software y Diseño Pedagógico
+ciencia de Datos,    Ciencia de Datos e Inteligencia Artificial
 * **Francisco Fernández** — Instalaciones Eléctricas y Sistemas Fotovoltaicos
 
 ---
