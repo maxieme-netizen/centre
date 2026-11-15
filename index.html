@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centre • Esferas 19: Misión Lunar & Marciana (v0.1 Base)</title>
+    <title>Centre • Esferas 19: Misión Lunar & Marciana (v0.2 Academia)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -107,18 +107,18 @@
     <div id="biometricScreen" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-50 flex items-center justify-center p-4">
         <div class="glass-panel w-full max-w-md p-6 rounded-[2.5rem] text-center border-2 border-cyan-400/40">
             <span class="bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-bold px-3 py-1 rounded-full">
-                🇦🇷 CENTRE • PROTOTIPO v0.1 (NASA SPACE APPS)
+                🇦🇷 CENTRE • PROTOTIPO v0.2 (ACADEMIA ESPACIAL)
             </span>
             <div class="w-24 h-24 mx-auto my-4 sphere-3d sphere-cyan">
                 <span class="text-5xl">🧑‍🚀</span>
             </div>
             <h2 class="text-2xl font-bold text-white mb-1">Misión Lunar & Marciana 🚀</h2>
-            <p class="text-xs text-slate-300 mb-4">Ingresá tu nombre de Comandante para iniciar el panel de telemetría.</p>
+            <p class="text-xs text-slate-300 mb-4">Ingresá tu nombre para iniciar la Academia Espacial.</p>
             <div class="space-y-3 text-left bg-slate-900/90 p-4 rounded-2xl border border-slate-700">
                 <label class="text-xs text-cyan-300 font-semibold block">🌟 Nombre del Comandante:</label>
                 <input type="text" id="regName" placeholder="Ej: Sofía, Mateo..." class="w-full bg-slate-950 border-2 border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white outline-none focus:border-cyan-400">
                 <button type="button" onclick="registerNewUser()" class="btn-3d-cyan w-full py-2.5 text-white font-bold rounded-xl text-sm">
-                    ¡INICIAR PANEL DE MISIÓN! 🛰️
+                    ¡ENTRAR A LA ACADEMIA! 🛰️
                 </button>
             </div>
         </div>
@@ -131,7 +131,7 @@
                 <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-700 border-2 border-white flex items-center justify-center text-xl">🧑‍🚀</div>
                 <div>
                     <h1 id="userNameDisplay" class="font-bold text-sm sm:text-base text-white">Comandante Junior</h1>
-                    <p class="text-[11px] text-cyan-300">Build v0.1 • Arquitectura Base & Voz Activa</p>
+                    <p class="text-[11px] text-cyan-300">Build v0.2 • Academia Espacial Activa</p>
                 </div>
             </div>
             <button type="button" id="btnVoiceToggle" onclick="toggleVoiceMute()" class="bg-cyan-500/20 text-cyan-300 px-3 py-1.5 rounded-xl border border-cyan-400/40 text-xs font-bold">
@@ -140,9 +140,9 @@
         </div>
 
         <div class="glass-panel px-4 py-2 rounded-2xl flex items-center gap-4 text-xs w-full lg:w-auto justify-around border border-white/15">
-            <div><span class="text-slate-400 block text-[9px]">ENERGÍA</span><b class="text-cyan-300">500 qums</b></div>
+            <div><span class="text-slate-400 block text-[9px]">ENERGÍA</span><b id="resEnergy" class="text-cyan-300">500 qums</b></div>
             <div class="w-px h-6 bg-white/15"></div>
-            <div><span class="text-slate-400 block text-[9px]">ESCUDO</span><b class="text-amber-300">Básico</b></div>
+            <div><span class="text-slate-400 block text-[9px]">ACADEMIA</span><b id="currentStage" class="text-amber-300">0/5 ⭐</b></div>
             <div class="w-px h-6 bg-white/15"></div>
             <div><span class="text-slate-400 block text-[9px]">SOPORTE VITAL</span><b class="text-lime-300">100%</b></div>
         </div>
@@ -154,7 +154,7 @@
             <div class="text-3xl">🤖</div>
             <div class="text-left">
                 <p class="text-[10px] uppercase tracking-wider text-amber-300 font-bold">🔊 AstroBot Guía (Tocá para escuchar)</p>
-                <p id="guideMessage" class="text-xs sm:text-sm text-white">Panel base cargado. Seleccioná cualquiera de las 5 esferas para ver el estado de cada módulo.</p>
+                <p id="guideMessage" class="text-xs sm:text-sm text-white">¡Tocá la <b>Esfera 1 (Aprender)</b> para ingresar a la Academia Espacial y ganar tus primeros qums!</p>
             </div>
         </div>
     </div>
@@ -162,11 +162,12 @@
     <!-- LAS 5 ESFERAS DEL SISTEMA -->
     <main class="relative z-20 flex flex-col justify-end items-center max-w-6xl mx-auto w-full px-2 pb-6 sm:pb-10">
         <div class="flex flex-row items-center justify-center w-full gap-2 sm:gap-5">
-            <div onclick="moduleNotice('Esfera 1: Academia Espacial')" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
+            <!-- ESFERA 1 ACTIVA -->
+            <div onclick="openPlanetHub()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
                 <div class="sphere-3d sphere-cyan"><span class="text-3xl sm:text-4xl">🧠</span></div>
-                <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-cyan-400/50 w-full">
-                    <span class="block text-[10px] sm:text-xs font-bold">1. Aprender</span>
-                    <span class="text-[9px] text-amber-300">En construcción</span>
+                <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-cyan-400 w-full shadow-lg">
+                    <span class="block text-[10px] sm:text-xs font-bold text-cyan-300">1. Aprender</span>
+                    <span class="text-[9px] text-white">Academia ⭐</span>
                 </div>
             </div>
 
@@ -174,7 +175,7 @@
                 <div class="sphere-3d sphere-emerald"><span class="text-3xl sm:text-4xl">🧲</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-emerald-400/50 w-full">
                     <span class="block text-[10px] sm:text-xs font-bold">2. Plastilina</span>
-                    <span class="text-[9px] text-amber-300">En construcción</span>
+                    <span class="text-[9px] text-amber-300">Próxima etapa</span>
                 </div>
             </div>
 
@@ -182,7 +183,7 @@
                 <div class="sphere-3d sphere-pink"><span class="text-3xl sm:text-4xl">🛠️</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-rose-400/50 w-full">
                     <span class="block text-[10px] sm:text-xs font-bold">3. Construir</span>
-                    <span class="text-[9px] text-amber-300">En construcción</span>
+                    <span class="text-[9px] text-amber-300">En desarrollo</span>
                 </div>
             </div>
 
@@ -190,7 +191,7 @@
                 <div class="sphere-3d sphere-gold"><span class="text-3xl sm:text-4xl">🚀</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-amber-400/50 w-full">
                     <span class="block text-[10px] sm:text-xs font-bold">4. Misión</span>
-                    <span class="text-[9px] text-amber-300">En construcción</span>
+                    <span class="text-[9px] text-amber-300">En desarrollo</span>
                 </div>
             </div>
 
@@ -198,15 +199,120 @@
                 <div class="sphere-3d sphere-purple"><span class="text-3xl sm:text-4xl">🛰️</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border border-purple-400/50 w-full">
                     <span class="block text-[10px] sm:text-xs font-bold">5. Acoplar</span>
-                    <span class="text-[9px] text-amber-300">En construcción</span>
+                    <span class="text-[9px] text-amber-300">En desarrollo</span>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- MODAL ACADEMIA ESPACIAL (ESFERA 1) -->
+    <div id="academyModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-lg z-40 hidden items-center justify-center p-3 sm:p-6">
+        <div class="glass-panel w-full max-w-4xl rounded-[2.5rem] border-2 border-cyan-400/50 p-5 sm:p-7 flex flex-col max-h-[90vh]">
+            <div class="flex justify-between items-center border-b border-white/15 pb-3 mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-2xl">🧠</div>
+                    <div>
+                        <h2 class="text-lg sm:text-2xl font-bold text-white">Academia Espacial Junior</h2>
+                        <p class="text-xs text-cyan-300">Escuchá la explicación de cada sector y respondé la pregunta</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="narrateCurrentAcademySector()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-3.5 py-2 rounded-2xl text-xs flex items-center gap-1.5 shadow-lg">
+                        <i class="fa-solid fa-volume-high"></i> <span>🔊 Escuchar Lección</span>
+                    </button>
+                    <button type="button" onclick="closeAcademyModal()" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white w-10 h-10 rounded-2xl font-bold text-lg border border-rose-400/40">✕</button>
+                </div>
+            </div>
+
+            <div id="sectorTabs" class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4"></div>
+            <div id="sectorContentBox" class="flex-1 overflow-y-auto bg-slate-900/90 rounded-3xl p-4 sm:p-6 border border-cyan-500/30"></div>
+        </div>
+    </div>
+
     <script>
         let voiceEnabled = true;
         let astronautName = "Comandante Junior";
+        let energyQums = 500;
+        let completedSectors = [];
+        let activeSector = 0;
+
+        const ACADEMY_SECTORS = [
+            {
+                id: 0,
+                icon: "☀️",
+                shortTitle: "1. Sol Zigzag",
+                title: "Energía Solar en Zigzag (70°)",
+                badge: "+150 qums",
+                story: "En la Luna no hay enchufes, ¡toda nuestra energía viene del Sol! Si ponemos un panel solar chato, cuando el Sol sale bajito o cae a la tarde, los rayos patinan y se pierden.",
+                secretFact: "💡 ¡Gran invento!: Usando paneles doblados en forma de montañitas o Zigzag a 70 grados, atrapamos los fotones de luz todo el día y el polvo lunar resbala solito.",
+                voiceScript: "Sector 1: Energía Solar en Zigzag a setenta grados. Atrapamos la luz desde que amanece hasta que anochece. Respondé la pregunta para ganar ciento cincuenta qums.",
+                question: "¿Por qué los paneles en Zigzag a 70° son mejores que los planos en la Luna?",
+                options: [
+                    { text: "A) Porque atrapan la luz solar en todos los ángulos y el polvo resbala", correct: true },
+                    { text: "B) Porque sirven de tobogán para los astronautas", correct: false }
+                ]
+            },
+            {
+                id: 1,
+                icon: "🔋",
+                shortTitle: "2. Baterías",
+                title: "Súper Baterías para la Noche Lunar",
+                badge: "+150 qums",
+                story: "¿Sabías que una sola noche en la Luna dura casi 14 días de la Tierra seguidos? ¡Imaginate dos semanas enteras a oscuras y con frío bajo cero!",
+                secretFact: "💡 ¡Gran invento!: De día guardamos toda la electricidad extra en Bancos de Baterías Inteligentes para tener calefacción y luz toda la noche.",
+                voiceScript: "Sector 2: Súper Baterías. Una noche en la Luna dura catorce días de la Tierra. Por eso guardamos energía en grandes baterías.",
+                question: "¿Para qué guardamos energía en grandes baterías durante el día lunar?",
+                options: [
+                    { text: "A) Para tener luz y calor durante los 14 días de noche lunar", correct: true },
+                    { text: "B) Para hacer más pesado el cohete", correct: false }
+                ]
+            },
+            {
+                id: 2,
+                icon: "🛡️",
+                shortTitle: "3. Escudos",
+                title: "Escudo contra Radiación y Regolito",
+                badge: "+150 qums",
+                story: "Como la Luna no tiene atmósfera, llegan rayos fuertes del espacio y hay un polvo gris filoso llamado Regolito Lunar.",
+                secretFact: "💡 ¡Gran invento!: Usamos impresoras 3D que mezclan la propia tierra de la Luna para fabricar un techo súper resistente.",
+                voiceScript: "Sector 3: Escudos de Protección. Usamos impresoras tres D para fundir la propia tierra lunar, el regolito, y construir un caparazón fuerte.",
+                question: "¿Con qué material cubrimos nuestra cápsula para protegerla de la radiación?",
+                options: [
+                    { text: "A) Con capas de Regolito Lunar impreso en 3D", correct: true },
+                    { text: "B) Con hojas de árboles lunares", correct: false }
+                ]
+            },
+            {
+                id: 3,
+                icon: "🌱",
+                shortTitle: "4. Bio-Huerta",
+                title: "Agua, Oxígeno y Huerta Espacial",
+                badge: "+150 qums",
+                story: "En una base lunar inteligente no se desperdicia ni una gota de agua, ¡y las plantas son nuestras mejores compañeras!",
+                secretFact: "💡 ¡Gran invento!: Con Hidroponía cultivamos verduras sin tierra con luces LED. ¡Las plantas limpian el aire y fabrican oxígeno puro!",
+                voiceScript: "Sector 4: Bio-Huerta Espacial. Cultivamos verduras sin tierra mediante hidroponía y las plantas nos regalan oxígeno limpio.",
+                question: "¿Qué beneficio nos dan las plantas del invernadero lunar?",
+                options: [
+                    { text: "A) Comida fresca y oxígeno limpio para respirar", correct: true },
+                    { text: "B) Manejan el cohete solas", correct: false }
+                ]
+            },
+            {
+                id: 4,
+                icon: "🇦🇷",
+                shortTitle: "5. Argentina",
+                title: "Puentes Lunares y Ciencia Argentina",
+                badge: "+200 qums",
+                story: "¡Argentina es un país espacial! Diseñamos rovers y sensores de teledetección para cruzar cañones y cráteres en la Luna.",
+                secretFact: "💡 ¡Orgullo Argentino!: En la siguiente etapa vas a usar el mapa de la Luna y la plastilina electrónica.",
+                voiceScript: "Sector 5: Ciencia Espacial Argentina. Creamos tecnología y sensores para construir puentes seguros en la Luna.",
+                question: "¿Qué desarrollamos en nuestro país para misiones espaciales?",
+                options: [
+                    { text: "A) Sensores y tecnología para puentes y energía lunar", correct: true },
+                    { text: "B) Sombrillas para el Sol", correct: false }
+                ]
+            }
+        ];
 
         function hablarArgentino(texto) {
             if (!voiceEnabled || !('speechSynthesis' in window)) return;
@@ -228,7 +334,7 @@
             if (val) astronautName = val;
             document.getElementById('userNameDisplay').textContent = astronautName;
             document.getElementById('biometricScreen').classList.add('hidden');
-            const msg = `Bienvenido ${astronautName}. Esta es la versión inicial de Centre. Estamos desarrollando los cinco módulos interactivos.`;
+            const msg = `¡Bienvenido ${astronautName}! Tocá la Esfera 1 para entrar a la Academia Espacial.`;
             document.getElementById('guideMessage').textContent = msg;
             hablarArgentino(msg);
         }
@@ -238,9 +344,123 @@
         }
 
         function moduleNotice(nombreModulo) {
-            const msg = `${nombreModulo} está en etapa de desarrollo. Pronto se integrará en la siguiente actualización.`;
+            const msg = `${nombreModulo} estará disponible en las próximas etapas del hackathon. ¡Primero pasá por la Academia!`;
             document.getElementById('guideMessage').textContent = msg;
             hablarArgentino(msg);
+        }
+
+        function openPlanetHub() {
+            hablarArgentino("Abriendo Academia Espacial.");
+            const modal = document.getElementById('academyModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            renderSectorTabs();
+            renderSectorContent(activeSector);
+            narrateCurrentAcademySector();
+        }
+
+        function closeAcademyModal() {
+            document.getElementById('academyModal').classList.add('hidden');
+            document.getElementById('academyModal').classList.remove('flex');
+        }
+
+        function narrateCurrentAcademySector() {
+            hablarArgentino(ACADEMY_SECTORS[activeSector].voiceScript);
+        }
+
+        function renderSectorTabs() {
+            const container = document.getElementById('sectorTabs');
+            container.innerHTML = ACADEMY_SECTORS.map(sec => {
+                const isDone = completedSectors.includes(sec.id);
+                const isActive = activeSector === sec.id;
+                return `
+                    <button type="button" onclick="selectSector(${sec.id})" class="p-2.5 rounded-2xl border-2 text-left transition-all flex items-center justify-between ${
+                        isActive ? 'bg-cyan-500/30 border-cyan-300 shadow-lg' : 'bg-slate-900/80 border-slate-700 hover:border-slate-500'
+                    }">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-lg">${sec.icon}</span>
+                            <span class="text-xs font-bold text-white">${sec.shortTitle}</span>
+                        </div>
+                        <span class="text-xs">${isDone ? '✅' : '⚪'}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectSector(id) {
+            activeSector = id;
+            renderSectorTabs();
+            renderSectorContent(id);
+            narrateCurrentAcademySector();
+        }
+
+        function renderSectorContent(id) {
+            const sec = ACADEMY_SECTORS[id];
+            const isCompleted = completedSectors.includes(id);
+            const box = document.getElementById('sectorContentBox');
+
+            box.innerHTML = `
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <span class="text-4xl">${sec.icon}</span>
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400">Sector ${id + 1} de 5</span>
+                            <h3 class="text-lg font-bold text-white">${sec.title}</h3>
+                        </div>
+                    </div>
+                    <span class="bg-amber-400/20 border border-amber-400 text-amber-300 text-xs font-bold px-3 py-1 rounded-xl">Premio: ${sec.badge}</span>
+                </div>
+                <div class="my-3 space-y-2 text-xs sm:text-sm text-slate-200">
+                    <p>${sec.story}</p>
+                    <div class="bg-cyan-950/60 border-l-4 border-cyan-400 p-3 rounded-r-2xl text-cyan-100">${sec.secretFact}</div>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                    <p class="text-xs sm:text-sm font-bold text-amber-300 mb-2">🤔 ${sec.question}</p>
+                    <div class="space-y-2">
+                        ${sec.options.map(opt => `
+                            <button type="button" onclick="answerTrivia(${sec.id}, ${opt.correct}, this)" 
+                                class="w-full text-left p-2.5 rounded-xl border-2 transition-all text-xs font-semibold flex items-center justify-between ${
+                                    isCompleted && opt.correct ? 'bg-emerald-500/25 border-emerald-400 text-emerald-200' : 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-white'
+                                }">
+                                <span>${opt.text}</span>
+                                ${isCompleted && opt.correct ? '<span>🌟 ¡Correcto!</span>' : ''}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="triviaFeedback" class="mt-3 text-xs font-bold text-center hidden"></div>
+                </div>
+            `;
+        }
+
+        function answerTrivia(sectorId, isCorrect, btnElement) {
+            const feedback = document.getElementById('triviaFeedback');
+            feedback.classList.remove('hidden');
+
+            if (isCorrect) {
+                btnElement.className = "w-full text-left p-2.5 rounded-xl border-2 bg-emerald-500/30 border-emerald-400 text-emerald-200 text-xs font-bold flex items-center justify-between";
+                if (!completedSectors.includes(sectorId)) {
+                    completedSectors.push(sectorId);
+                    const reward = sectorId === 4 ? 200 : 150;
+                    energyQums += reward;
+                    document.getElementById('resEnergy').textContent = `${energyQums} qums`;
+                    document.getElementById('currentStage').textContent = `${completedSectors.length}/5 ⭐`;
+                    renderSectorTabs();
+                    feedback.innerHTML = `🎉 <span class="text-emerald-400">¡Correcto! Ganaste +${reward} qums.</span>`;
+                    hablarArgentino(`¡Muy bien! Ganaste ${reward} qums.`);
+                } else {
+                    feedback.innerHTML = `✅ <span class="text-cyan-300">¡Sector ya superado!</span>`;
+                }
+
+                if (sectorId < 4) {
+                    feedback.innerHTML += `<div class="mt-2"><button type="button" onclick="selectSector(${sectorId + 1})" class="btn-3d-cyan px-4 py-1.5 rounded-xl text-white text-xs">Pasar al Sector ${sectorId + 2} ➡️</button></div>`;
+                } else {
+                    feedback.innerHTML += `<div class="mt-2 text-emerald-300 font-bold">🏆 ¡Academia completada! Próximamente habilitaremos la Esfera 2 (Plastilina 60x60).</div>`;
+                }
+            } else {
+                btnElement.className = "w-full text-left p-2.5 rounded-xl border-2 bg-rose-500/30 border-rose-400 text-rose-200 text-xs font-bold";
+                feedback.innerHTML = `🚀 <span class="text-rose-400">¡Casi! Probá con la otra opción.</span>`;
+                hablarArgentino("¡Casi! Probá con la otra opción.");
+            }
         }
     </script>
 </body>
