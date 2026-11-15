@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centre: Misión Lunar & Marciana (v0.3 Plastilina 3D 60x60)</title>
+    <title>Centre • Esferas 19: Misión Lunar & Marciana (v0.4 Muro RadLab & Marte)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,7 +16,7 @@
             background-color: #060916;
             background-image: 
                 radial-gradient(circle at 12% 18%, rgba(0, 242, 254, 0.14) 0%, transparent 38%),
-                radial-gradient(circle at 88% 82%, rgba(16, 185, 129, 0.14) 0%, transparent 38%),
+                radial-gradient(circle at 88% 82%, rgba(249, 115, 22, 0.16) 0%, transparent 38%),
                 radial-gradient(circle at 50% 50%, #101736 0%, #050711 100%);
             color: white;
             margin: 0;
@@ -87,13 +87,13 @@
             border: 3px solid rgba(216, 180, 254, 0.85);
             box-shadow: 0 15px 30px rgba(168, 85, 247, 0.45);
         }
-        .btn-3d-cyan {
-            background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
-            box-shadow: 0 5px 0 #0369a1, 0 8px 16px rgba(2, 132, 199, 0.4);
-        }
         .btn-3d-emerald {
             background: linear-gradient(180deg, #34d399 0%, #059669 100%);
             box-shadow: 0 4px 0 #065f46, 0 6px 14px rgba(5, 150, 105, 0.4);
+        }
+        .btn-3d-amber {
+            background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+            box-shadow: 0 4px 0 #92400e, 0 6px 14px rgba(217, 119, 6, 0.4);
         }
         .glass-panel {
             background: rgba(15, 23, 42, 0.88);
@@ -111,18 +111,18 @@
 
     <!-- PANTALLA INICIAL -->
     <div id="biometricScreen" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-50 flex items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-md p-6 rounded-[2.5rem] text-center border-2 border-emerald-400/40">
-            <span class="bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-bold px-3 py-1 rounded-full">
-                🇦🇷 CENTRE • PROTOTIPO v0.3 (MATRIZ 3D 60×60)
+        <div class="glass-panel w-full max-w-md p-6 rounded-[2.5rem] text-center border-2 border-amber-400/40">
+            <span class="bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[10px] font-bold px-3 py-1 rounded-full">
+                🇦🇷 CENTRE • PROTOTIPO v0.4 (RADLAB & MARTE JEZERO)
             </span>
             <div class="w-24 h-24 mx-auto my-4 sphere-3d sphere-emerald">
-                <span class="text-5xl">🧲</span>
+                <span class="text-5xl">🛡️</span>
             </div>
             <h2 class="text-2xl font-bold text-white mb-1">Misión Lunar & Marciana 🚀</h2>
-            <p class="text-xs text-slate-300 mb-4">Academia Espacial + Plastilina Electrónica 3D de 3.600 sensores.</p>
+            <p class="text-xs text-slate-300 mb-4">Puente Rover + Muro Escudo Anti-Radiación (NASA RadLab) + Cráter Jezero.</p>
             <div class="space-y-3 text-left bg-slate-900/90 p-4 rounded-2xl border border-slate-700">
-                <label class="text-xs text-emerald-300 font-semibold block">🌟 Nombre del Comandante:</label>
-                <input type="text" id="regName" placeholder="Ej: Sofía, Mateo..." class="w-full bg-slate-950 border-2 border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white outline-none focus:border-emerald-400">
+                <label class="text-xs text-amber-300 font-semibold block">🌟 Nombre del Comandante:</label>
+                <input type="text" id="regName" placeholder="Ej: Sofía, Mateo..." class="w-full bg-slate-950 border-2 border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white outline-none focus:border-amber-400">
                 <button type="button" onclick="registerNewUser()" class="btn-3d-emerald w-full py-2.5 text-white font-bold rounded-xl text-sm">
                     ¡INICIAR SIMULADOR! 🛰️
                 </button>
@@ -134,33 +134,33 @@
     <header class="relative z-20 p-3 sm:p-4 flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto w-full gap-2.5">
         <div class="glass-panel px-4 py-2 rounded-2xl flex items-center justify-between gap-3 w-full lg:w-auto border border-cyan-400/30">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-700 border-2 border-white flex items-center justify-center text-xl">🧑‍🚀</div>
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-emerald-700 border-2 border-white flex items-center justify-center text-xl">🧑‍🚀</div>
                 <div>
                     <h1 id="userNameDisplay" class="font-bold text-sm sm:text-base text-white">Comandante Junior</h1>
-                    <p class="text-[11px] text-emerald-300">Build v0.3 • Voz Argentina (es-AR) + Plastilina 60×60</p>
+                    <p class="text-[11px] text-amber-300">Build v0.4 • Muro RadLab + Cráter Jezero (Mars Trek)</p>
                 </div>
             </div>
             <button type="button" id="btnVoiceToggle" onclick="toggleVoiceMute()" class="bg-cyan-500/20 text-cyan-300 px-3 py-1.5 rounded-xl border border-cyan-400/40 text-xs font-bold">
-                <i id="voiceIcon" class="fa-solid fa-volume-high text-amber-300"></i> <span id="voiceStatusText">Voz AR: ON</span>
+                <i class="fa-solid fa-volume-high text-amber-300"></i> <span id="voiceStatusText">Voz AR: ON</span>
             </button>
         </div>
 
         <div class="glass-panel px-4 py-2 rounded-2xl flex items-center gap-4 text-xs w-full lg:w-auto justify-around border border-white/15">
             <div><span class="text-slate-400 block text-[9px]">ENERGÍA</span><b id="resEnergy" class="text-cyan-300">500 qums</b></div>
             <div class="w-px h-6 bg-white/15"></div>
-            <div><span class="text-slate-400 block text-[9px]">SENSORES 3D</span><b class="text-emerald-300 mono-font">3.600 (60×60)</b></div>
-            <div class="w-px h-6 bg-white/15"></div>
             <div><span class="text-slate-400 block text-[9px]">PUENTE ROVER</span><b id="bridgeHudStatus" class="text-amber-300">Pendiente</b></div>
+            <div class="w-px h-6 bg-white/15"></div>
+            <div><span class="text-slate-400 block text-[9px]">MURO RADLAB</span><b id="shieldHudStatus" class="text-amber-300">Pendiente</b></div>
         </div>
     </header>
 
     <!-- RELATOR GUÍA -->
     <div class="relative z-20 max-w-2xl mx-auto px-4 w-full text-center my-auto">
-        <div onclick="speakCurrentGuide()" class="glass-panel px-5 py-3.5 rounded-3xl border border-emerald-400/40 inline-flex items-center gap-3.5 cursor-pointer">
+        <div onclick="speakCurrentGuide()" class="glass-panel px-5 py-3.5 rounded-3xl border border-amber-400/40 inline-flex items-center gap-3.5 cursor-pointer">
             <div class="text-3xl">🤖</div>
             <div class="text-left">
-                <p class="text-[10px] uppercase tracking-wider text-emerald-300 font-bold">🔊 AstroBot Guía Argentino (Tocá para escuchar)</p>
-                <p id="guideMessage" class="text-xs sm:text-sm text-white">¡Che Comandante! Ya podés entrar a la <b>Esfera 2 (Plastilina 3D 60×60)</b> para moldear un puente lunar con datos del satélite LRO.</p>
+                <p class="text-[10px] uppercase tracking-wider text-amber-300 font-bold">🔊 AstroBot Guía Argentino (Tocá para escuchar)</p>
+                <p id="guideMessage" class="text-xs sm:text-sm text-white">¡Novedad en la <b>Esfera 2</b>! Ahora podés viajar al <b>Cráter Jezero en Marte</b> y moldear el <b>Muro Escudo Anti-Radiación</b> sin tapar los paneles solares.</p>
             </div>
         </div>
     </div>
@@ -168,7 +168,6 @@
     <!-- LAS 5 ESFERAS DEL SISTEMA -->
     <main class="relative z-20 flex flex-col justify-end items-center max-w-6xl mx-auto w-full px-2 pb-6 sm:pb-10">
         <div class="flex flex-row items-center justify-center w-full gap-2 sm:gap-5">
-            <!-- ESFERA 1 ACTIVA -->
             <div onclick="openPlanetHub()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
                 <div class="sphere-3d sphere-cyan"><span class="text-3xl sm:text-4xl">🧠</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-cyan-400 w-full shadow-lg">
@@ -177,12 +176,11 @@
                 </div>
             </div>
 
-            <!-- ESFERA 2 ACTIVA (PLASTILINA 3D 60x60) -->
             <div onclick="openClayModal()" class="orb-wrapper flex flex-col items-center cursor-pointer w-20 sm:w-32">
                 <div class="sphere-3d sphere-emerald"><span class="text-3xl sm:text-4xl">🧲</span></div>
                 <div class="mt-2 bg-slate-900/95 px-2 py-1.5 rounded-2xl text-center border-2 border-emerald-400 w-full shadow-lg">
                     <span class="block text-[10px] sm:text-xs font-bold text-emerald-300">2. Plastilina</span>
-                    <span class="text-[9px] text-white">Matriz 60×60 🟢</span>
+                    <span class="text-[9px] text-amber-300">Puente + Escudo 🛡️</span>
                 </div>
             </div>
 
@@ -224,10 +222,8 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button type="button" onclick="narrateCurrentAcademySector()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-3.5 py-2 rounded-2xl text-xs flex items-center gap-1.5 shadow-lg">
-                        <i class="fa-solid fa-volume-high"></i> <span>🔊 Escuchar</span>
-                    </button>
-                    <button type="button" onclick="closeAcademyModal()" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white w-10 h-10 rounded-2xl font-bold text-lg border border-rose-400/40">✕</button>
+                    <button type="button" onclick="narrateCurrentAcademySector()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-3.5 py-2 rounded-2xl text-xs">🔊 Escuchar</button>
+                    <button type="button" onclick="closeAcademyModal()" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 w-10 h-10 rounded-2xl font-bold text-lg border border-rose-400/40">✕</button>
                 </div>
             </div>
             <div id="sectorTabs" class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4"></div>
@@ -235,60 +231,70 @@
         </div>
     </div>
 
-    <!-- MODAL ESFERA 2: PLASTILINA ELECTRÓNICA 3D (60x60 = 3.600 SENSORES) -->
+    <!-- MODAL ESFERA 2: PLASTILINA 3D (PUENTE ROVER + MURO ESCUDO RADLAB + MARTE) -->
     <div id="clayModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-40 hidden items-center justify-center p-2 sm:p-4">
         <div class="glass-panel w-full max-w-6xl rounded-[2rem] border-2 border-emerald-400/50 p-3 sm:p-5 flex flex-col max-h-[95vh] overflow-y-auto">
-            <!-- Header Plastilina -->
+            <!-- Header + Selector de Misión (Puente vs Escudo) -->
             <div class="flex flex-wrap justify-between items-center gap-2 border-b border-white/15 pb-2.5 mb-3">
                 <div class="flex items-center gap-2.5">
                     <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-400 flex items-center justify-center text-2xl">🧲</div>
                     <div>
-                        <h2 class="text-base sm:text-xl font-bold text-white">Esfera 2 • Plastilina Electrónica 3D (60×60 = 3.600 Sensores)</h2>
-                        <p class="text-[11px] text-emerald-300">Topografía Lunar LRO • Moldeá el Puente Rover sobre la grieta para cruzar de A hasta B</p>
+                        <h2 class="text-base sm:text-xl font-bold text-white">Esfera 2 • Matriz 3D 60×60 (Luna LRO & Marte Mars Trek)</h2>
+                        <p class="text-[11px] text-emerald-300">Elegí entre construir el Puente Rover o levantar el Muro Escudo Anti-Radiación (NASA RadLab)</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button type="button" onclick="explainClayVoice()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-3 py-1.5 rounded-xl text-xs">
-                        🔊 Explicación Voz AR
+                    <button type="button" id="modeBtnBridge" onclick="switchClayTaskMode('bridge')" class="px-3 py-1.5 rounded-xl font-extrabold text-xs bg-emerald-400 text-slate-950">
+                        🌉 Modo 1: Puente Rover
                     </button>
-                    <button type="button" onclick="closeClayModal()" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white w-9 h-9 rounded-xl font-bold border border-rose-400/40">✕</button>
+                    <button type="button" id="modeBtnShield" onclick="switchClayTaskMode('shield')" class="px-3 py-1.5 rounded-xl font-extrabold text-xs bg-slate-800 text-amber-300 border border-amber-400/50">
+                        🛡️ Modo 2: Muro RadLab
+                    </button>
+                    <button type="button" onclick="explainClayVoice()" class="bg-cyan-500/20 border border-cyan-400 text-cyan-200 font-bold px-2.5 py-1.5 rounded-xl text-xs">
+                        🔊 Voz AR
+                    </button>
+                    <button type="button" onclick="closeClayModal()" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 w-9 h-9 rounded-xl font-bold border border-rose-400/40">✕</button>
                 </div>
             </div>
 
-            <!-- Selector de 4 Sitios Lunares Reales (LRO) -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+            <!-- Selector de 5 Sitios Reales (4 Luna LRO + 1 Marte Mars Trek) -->
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-3">
                 <button type="button" onclick="selectLunarSite(0)" id="siteBtn0" class="p-2 rounded-xl border-2 border-emerald-400 bg-emerald-500/20 text-left text-xs">
-                    <b class="block text-white">🌑 1. Cráter Shackleton</b>
-                    <span class="text-[10px] text-emerald-200">Polo Sur (89.9°S) • Grieta Profunda</span>
+                    <b class="block text-white">🌑 1. Shackleton</b>
+                    <span class="text-[10px] text-emerald-200">Luna 89.9°S • 0.42 mSv/d</span>
                 </button>
                 <button type="button" onclick="selectLunarSite(1)" id="siteBtn1" class="p-2 rounded-xl border border-slate-700 bg-slate-900/80 text-left text-xs">
                     <b class="block text-white">🌋 2. Vallis Schröteri</b>
-                    <span class="text-[10px] text-slate-400">26.2°N • Cañón Volcánico</span>
+                    <span class="text-[10px] text-slate-400">Luna 26.2°N • 0.38 mSv/d</span>
                 </button>
                 <button type="button" onclick="selectLunarSite(2)" id="siteBtn2" class="p-2 rounded-xl border border-slate-700 bg-slate-900/80 text-left text-xs">
                     <b class="block text-white">⛰️ 3. Rima Hadley</b>
-                    <span class="text-[10px] text-slate-400">Sitio Apolo 15 • Surco Lunar</span>
+                    <span class="text-[10px] text-slate-400">Apolo 15 • 0.36 mSv/d</span>
                 </button>
                 <button type="button" onclick="selectLunarSite(3)" id="siteBtn3" class="p-2 rounded-xl border border-slate-700 bg-slate-900/80 text-left text-xs">
-                    <b class="block text-white">🛸 4. Mare Tranquillitatis</b>
-                    <span class="text-[10px] text-slate-400">0.67°N • Fosa de Lava Basáltica</span>
+                    <b class="block text-white">🛸 4. Tranquillitatis</b>
+                    <span class="text-[10px] text-slate-400">Luna 0.67°N • 0.35 mSv/d</span>
+                </button>
+                <button type="button" onclick="selectLunarSite(4)" id="siteBtn4" class="p-2 rounded-xl border border-orange-500/60 bg-orange-950/40 text-left text-xs">
+                    <b class="block text-orange-300">🔴 5. Cráter Jezero</b>
+                    <span class="text-[10px] text-orange-200">Marte (Mars Trek) • 0.64 mSv/d</span>
                 </button>
             </div>
 
             <!-- Controles de Pincel y Acciones -->
             <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-900/90 p-2.5 rounded-2xl border border-slate-700 mb-3 text-xs">
                 <div class="flex flex-wrap items-center gap-1.5">
-                    <span class="text-slate-400 font-bold mr-1">Herramienta:</span>
-                    <button type="button" id="toolRaise" onclick="setBrushTool('raise')" class="px-3 py-1.5 rounded-xl font-bold bg-emerald-500 text-slate-950">🔼 Rellenar / Elevar</button>
-                    <button type="button" id="toolSmooth" onclick="setBrushTool('smooth')" class="px-3 py-1.5 rounded-xl font-bold bg-slate-800 text-slate-200 border border-slate-600">🟰 Nivelar Puente</button>
+                    <span class="text-slate-400 font-bold mr-1">Pincel:</span>
+                    <button type="button" id="toolRaise" onclick="setBrushTool('raise')" class="px-3 py-1.5 rounded-xl font-bold bg-emerald-500 text-slate-950">🔼 Elevar Regolito</button>
+                    <button type="button" id="toolSmooth" onclick="setBrushTool('smooth')" class="px-3 py-1.5 rounded-xl font-bold bg-slate-800 text-slate-200 border border-slate-600">🟰 Nivelar (Altura Óptima)</button>
                     <button type="button" id="toolLower" onclick="setBrushTool('lower')" class="px-3 py-1.5 rounded-xl font-bold bg-slate-800 text-slate-200 border border-slate-600">🔽 Excavar</button>
                 </div>
 
                 <div class="flex flex-wrap items-center gap-2">
-                    <button type="button" onclick="autoBuildIdealBridge()" class="px-3 py-1.5 rounded-xl font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 hover:bg-cyan-500/30">
-                        ✨ Auto-Moldear Puente
+                    <button type="button" onclick="autoBuildCurrentMode()" class="px-3 py-1.5 rounded-xl font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 hover:bg-cyan-500/30">
+                        ✨ Auto-Moldear Óptimo
                     </button>
-                    <button type="button" onclick="launchRoverTest()" class="btn-3d-emerald px-4 py-1.5 rounded-xl font-extrabold text-white">
+                    <button type="button" id="primaryActionBtn" onclick="runCurrentClayTest()" class="btn-3d-emerald px-4 py-1.5 rounded-xl font-extrabold text-white">
                         🚜 ¡Lanzar Rover (A ➔ B)!
                     </button>
                     <button type="button" onclick="resetClayTerrain()" class="px-3 py-1.5 rounded-xl font-bold bg-rose-500/20 text-rose-300 border border-rose-400/40">
@@ -297,39 +303,40 @@
                 </div>
             </div>
 
-            <!-- Área Dual: Visor 3D WebGL + Radar 2D 60x60 -->
+            <!-- Área Dual: Visor 3D WebGL + Radar 2D 60x60 con Telemetría RadLab -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 items-stretch">
                 <!-- Visor 3D -->
                 <div class="lg:col-span-2 relative bg-slate-950 rounded-2xl border-2 border-emerald-500/40 overflow-hidden h-[300px] sm:h-[360px]">
                     <div id="clay3DContainer" class="w-full h-full cursor-crosshair"></div>
-                    <div class="absolute top-2.5 left-2.5 bg-slate-950/85 px-3 py-1.5 rounded-xl border border-emerald-400/40 text-[11px] pointer-events-none">
-                        <span class="text-emerald-300 font-bold">🖱️ Arrastrá sobre el domo 3D</span> para rellenar la grieta roja entre <b>A</b> y <b>B</b>
+                    <div id="clayTopHint" class="absolute top-2.5 left-2.5 bg-slate-950/85 px-3 py-1.5 rounded-xl border border-emerald-400/40 text-[11px] pointer-events-none">
+                        <span class="text-emerald-300 font-bold">🖱️ Modo Puente:</span> Rellená la falla central entre A y B para que cruce el Rover.
                     </div>
                     <div id="roverStatusBanner" class="absolute bottom-2.5 left-2.5 right-2.5 bg-slate-950/90 px-3 py-2 rounded-xl border border-cyan-400/40 text-xs font-bold text-center text-cyan-200">
-                        Estado del Puente: Rellená la falla central para que el Rover cruce sin caerse (-25 qums por lanzamiento).
+                        Listo para moldear terreno en 3D o en el radar 60×60.
                     </div>
                 </div>
 
-                <!-- Radar Matricial 2D (60x60) + Telemetría -->
+                <!-- Radar Matricial 2D (60x60) + Telemetría Dual (Puente + RadLab) -->
                 <div class="bg-slate-900/90 rounded-2xl border border-slate-700 p-3 flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-emerald-300">📡 Radar LED 60×60 (Clic o arrastrá)</span>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="text-xs font-bold text-emerald-300">📡 Radar 60×60 (3.600 Sensores)</span>
                             <span id="siteCoordBadge" class="text-[10px] mono-font text-cyan-300">89.9°S 0.0°E</span>
                         </div>
-                        <canvas id="radar2DCanvas" width="240" height="240" class="w-full max-w-[230px] mx-auto rounded-xl border-2 border-emerald-500/40 bg-slate-950 cursor-pointer block"></canvas>
+                        <canvas id="radar2DCanvas" width="240" height="240" class="w-full max-w-[215px] mx-auto rounded-xl border-2 border-emerald-500/40 bg-slate-950 cursor-pointer block"></canvas>
                     </div>
 
-                    <div class="mt-3 space-y-1.5 bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-[11px]">
+                    <div class="mt-2 space-y-1.5 bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-[11px]">
                         <div class="flex justify-between">
-                            <span class="text-slate-400">Continuidad del Puente (A➔B):</span>
-                            <b id="bridgeContinuityText" class="text-amber-300 mono-font">38%</b>
+                            <span class="text-slate-400">Continuidad Puente (A➔B):</span>
+                            <b id="bridgeContinuityText" class="text-emerald-300 mono-font">38%</b>
                         </div>
-                        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                            <div id="bridgeProgressBar" class="bg-emerald-400 h-full transition-all" style="width: 38%"></div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Blindaje RadLab vs. Sol:</span>
+                            <b id="shieldBalanceText" class="text-amber-300 mono-font">Rad: 45% | Sol: 95%</b>
                         </div>
                         <p class="text-[10px] text-slate-400 pt-1">
-                            🟢 Verde: Nivel seguro • 🔴 Rojo: Grieta profunda • 🔵 Azul: Relleno elevado
+                            ⚖️ <b>Trade-off RadLab:</b> Si levantás el muro demasiado alto (>1.3m) frenás la radiación pero tapás el Sol de los paneles en Zigzag.
                         </p>
                     </div>
                 </div>
@@ -345,12 +352,11 @@
         let activeSector = 0;
         let preferredArVoice = null;
 
-        // Selección automática de voz en Español Argentino (es-AR)
         function loadArgentineVoice() {
             if (!('speechSynthesis' in window)) return;
             const voices = window.speechSynthesis.getVoices();
             preferredArVoice = voices.find(v => v.lang.toLowerCase() === 'es-ar') ||
-                               voices.find(v => v.lang.toLowerCase().includes('es-419') || v.lang.toLowerCase().includes('es-mx') || v.lang.toLowerCase().startsWith('es'));
+                               voices.find(v => v.lang.toLowerCase().includes('es-419') || v.lang.toLowerCase().startsWith('es'));
         }
         if ('speechSynthesis' in window) {
             window.speechSynthesis.onvoiceschanged = loadArgentineVoice;
@@ -379,7 +385,7 @@
             if (val) astronautName = val;
             document.getElementById('userNameDisplay').textContent = astronautName;
             document.getElementById('biometricScreen').classList.add('hidden');
-            const msg = `¡Hola ${astronautName}! Bienvenido a la base espacial argentina. Tocá la Esfera 1 para aprender o la Esfera 2 para moldear la plastilina tres D de sesenta por sesenta sensores.`;
+            const msg = `¡Hola ${astronautName}! Ya habilitamos el Cráter Jezero en Marte y el modo Muro Escudo con datos de NASA RadLab en la Esfera 2.`;
             document.getElementById('guideMessage').textContent = msg;
             hablarArgentino(msg);
         }
@@ -389,7 +395,7 @@
         }
 
         function moduleNotice(nombreModulo) {
-            const msg = `Che ${astronautName}, ${nombreModulo} se habilita en la próxima actualización de hoy. ¡Probá ahora la Plastilina tres D en la Esfera 2!`;
+            const msg = `Che ${astronautName}, ${nombreModulo} se activa en la siguiente actualización de esta tarde. ¡Probá el Muro Anti-Radiación y Marte en la Esfera 2!`;
             document.getElementById('guideMessage').textContent = msg;
             hablarArgentino(msg);
         }
@@ -398,10 +404,10 @@
         const ACADEMY_SECTORS = [
             {
                 id: 0, icon: "☀️", shortTitle: "1. Sol Zigzag", title: "Energía Solar en Zigzag (70°)", badge: "+150 qums",
-                story: "En la Luna no hay enchufes, ¡toda nuestra energía viene del Sol! Si ponemos un panel chato, cuando el Sol sale bajito los rayos patinan.",
-                secretFact: "💡 ¡Gran invento!: Usando paneles en Zigzag a 70 grados atrapamos fotones todo el día y el polvo lunar resbala solito.",
-                voiceScript: "Che, mirá el Sector 1: Energía Solar en Zigzag a setenta grados. Atrapamos la luz desde que amanece y el polvo lunar resbala.",
-                question: "¿Por qué los paneles en Zigzag a 70° son mejores que los planos en la Luna?",
+                story: "En la Luna y Marte toda nuestra energía viene del Sol. Si ponemos un panel chato, cuando el Sol está bajito los rayos se pierden.",
+                secretFact: "💡 Usando paneles en Zigzag a 70 grados atrapamos fotones todo el día y el polvo resbala.",
+                voiceScript: "Sector 1: Energía Solar en Zigzag a setenta grados. Atrapamos la luz desde que amanece.",
+                question: "¿Por qué los paneles en Zigzag a 70° son mejores que los planos?",
                 options: [
                     { text: "A) Porque atrapan la luz solar en todos los ángulos y el polvo resbala", correct: true },
                     { text: "B) Porque sirven de tobogán para los astronautas", correct: false }
@@ -409,9 +415,9 @@
             },
             {
                 id: 1, icon: "🔋", shortTitle: "2. Baterías", title: "Súper Baterías para la Noche Lunar", badge: "+150 qums",
-                story: "¿Sabías que una sola noche en la Luna dura casi 14 días de la Tierra seguidos? ¡Dos semanas enteras a oscuras!",
-                secretFact: "💡 Guardamos toda la electricidad extra de día en Bancos de Baterías para tener calefacción y luz toda la noche.",
-                voiceScript: "Sector 2: Súper Baterías. Una noche en la Luna dura catorce días seguidos de la Tierra, por eso guardamos energía de día.",
+                story: "Una sola noche en la Luna dura casi 14 días de la Tierra seguidos a oscuras y bajo cero.",
+                secretFact: "💡 De día guardamos toda la electricidad extra en Bancos de Baterías Inteligentes.",
+                voiceScript: "Sector 2: Súper Baterías para soportar los catorce días de noche lunar.",
                 question: "¿Para qué guardamos energía en grandes baterías durante el día lunar?",
                 options: [
                     { text: "A) Para tener luz y calor durante los 14 días de noche lunar", correct: true },
@@ -419,36 +425,36 @@
                 ]
             },
             {
-                id: 2, icon: "🛡️", shortTitle: "3. Escudos", title: "Escudo contra Radiación y Regolito", badge: "+150 qums",
-                story: "Como la Luna no tiene atmósfera, llegan rayos fuertes del espacio y hay un polvo gris filoso llamado Regolito Lunar.",
-                secretFact: "💡 Usamos impresoras 3D que funden la propia tierra de la Luna para fabricar un caparazón súper resistente.",
-                voiceScript: "Sector 3: Escudos de Protección. Imprimimos en tres D con la propia tierra lunar, el regolito, para frenar la radiación.",
-                question: "¿Con qué material cubrimos nuestra cápsula para protegerla de la radiación?",
+                id: 2, icon: "🛡️", shortTitle: "3. Escudos", title: "Escudo RadLab contra Radiación y Regolito", badge: "+150 qums",
+                story: "Los sensores de NASA RadLab miden la radiación espacial. Para frenarla sin tapar los paneles solares, levantamos muros de regolito a medida.",
+                secretFact: "💡 Si el muro es muy bajo pasa la radiación; si es demasiado alto da sombra a los paneles solares.",
+                voiceScript: "Sector 3: Escudos de Regolito con datos de NASA RadLab. Hay que proteger la cápsula sin dejar a oscuras los paneles solares.",
+                question: "¿Qué pasa si levantamos el muro de regolito demasiado alto alrededor de la base?",
                 options: [
-                    { text: "A) Con capas de Regolito Lunar impreso en 3D", correct: true },
-                    { text: "B) Con hojas de árboles lunares", correct: false }
+                    { text: "A) Frenamos la radiación pero bloqueamos la luz solar de los paneles", correct: true },
+                    { text: "B) El muro sale volando solo", correct: false }
                 ]
             },
             {
-                id: 3, icon: "🌱", shortTitle: "4. Bio-Huerta", title: "Agua, Oxígeno y Huerta Espacial", badge: "+150 qums",
-                story: "En una base lunar inteligente no se desperdicia ni una gota de agua, ¡y las plantas nos dan oxígeno y comida fresca!",
-                secretFact: "💡 Con Hidroponía cultivamos verduras sin tierra usando luces LED.",
-                voiceScript: "Sector 4: Bio-Huerta Espacial. Cultivamos verduras sin tierra y las plantas fabrican oxígeno puro para respirar.",
-                question: "¿Qué beneficio nos dan las plantas del invernadero lunar?",
+                id: 3, icon: "🌱", shortTitle: "4. Bio-Huerta", title: "Agua, Oxígeno y Huerta Espacial (CSA)", badge: "+150 qums",
+                story: "Con hidroponía cultivamos verduras sin tierra usando luces LED que producen oxígeno limpio para la tripulación.",
+                secretFact: "💡 Inspirado en los invernaderos espaciales de la Agencia Espacial Canadiense (CSA).",
+                voiceScript: "Sector 4: Bio-Huerta Espacial hidroponica para producir oxígeno y alimentos frescos.",
+                question: "¿Qué beneficio nos dan las plantas del invernadero espacial?",
                 options: [
                     { text: "A) Comida fresca y oxígeno limpio para respirar", correct: true },
                     { text: "B) Manejan el cohete solas", correct: false }
                 ]
             },
             {
-                id: 4, icon: "🇦🇷", shortTitle: "5. Argentina", title: "Puentes Lunares y Ciencia Argentina", badge: "+200 qums",
-                story: "¡Argentina es un país espacial! Diseñamos sensores y matrices táctiles para cruzar cañones y cráteres en la Luna.",
-                secretFact: "💡 En la Esfera 2 vas a moldear la matriz de 60×60 sensores para que cruce el Rover.",
-                voiceScript: "Sector 5: Ciencia Espacial Argentina. Diseñamos sensores para construir puentes seguros en la Luna.",
-                question: "¿Qué desarrollamos para que los rovers crucen grietas lunares?",
+                id: 4, icon: "🇦🇷", shortTitle: "5. Argentina", title: "Topografía LRO & Mars Trek (Jezero)", badge: "+200 qums",
+                story: "Con los mapas reales del orbitador LRO en la Luna y Mars Trek en el Cráter Jezero de Marte, moldeamos puentes y defensas.",
+                secretFact: "💡 En la Esfera 2 podés alternar entre 4 sitios lunares y el Cráter Jezero en Marte.",
+                voiceScript: "Sector 5: Ciencia Espacial con mapas reales de la Luna y del Cráter Jezero en Marte.",
+                question: "¿Qué dos desafíos resolvemos en la matriz 3D de 60×60 sensores?",
                 options: [
-                    { text: "A) Puentes nivelados con sensores topográficos 3D", correct: true },
-                    { text: "B) Sombrillas para el Sol", correct: false }
+                    { text: "A) El Puente para el Rover y el Muro Escudo Anti-Radiación", correct: true },
+                    { text: "B) Canchas de fútbol marcianas", correct: false }
                 ]
             }
         ];
@@ -528,21 +534,24 @@
             }
         }
 
-        // ==================== ESFERA 2: MATRIZ 3D 60x60 SENSORES ====================
+        // ==================== ESFERA 2: MATRIZ 3D (PUENTE + MURO RADLAB + MARTE) ====================
         const GRID_SIZE = 60;
         let heightMap = new Float32Array(GRID_SIZE * GRID_SIZE);
         let currentSiteIndex = 0;
         let currentBrush = 'raise';
+        let clayTaskMode = 'bridge'; // 'bridge' | 'shield'
         let threeInitialized = false;
-        let scene, camera, renderer, terrainMesh, roverMesh, raycaster, mouseVec;
+        let scene, camera, renderer, terrainMesh, roverMesh, habitatMesh, raycaster, mouseVec;
         let isPointerDown = false;
         let bridgeCompleted = false;
+        let shieldCompleted = false;
 
-        const LUNAR_SITES = [
-            { name: "Cráter Shackleton", coords: "89.9°S 0.0°E", canyonWidth: 9, depth: -2.4, desc: "Grieta polar profunda entre las plataformas A y B." },
-            { name: "Vallis Schröteri", coords: "26.2°N 50.8°W", canyonWidth: 11, depth: -2.1, desc: "Valle volcánico sinuoso que corta el camino del Rover." },
-            { name: "Rima Hadley", coords: "25.0°N 3.0°E", canyonWidth: 8, depth: -1.9, desc: "Surco lunar del Apolo 15 con paredes empinadas." },
-            { name: "Mare Tranquillitatis", coords: "0.67°N 23.47°E", canyonWidth: 10, depth: -2.2, desc: "Fosa basáltica colapsada en el Mar de la Tranquilidad." }
+        const SITES_DATA = [
+            { name: "Cráter Shackleton (Luna)", planet: "moon", coords: "89.9°S 0.0°E", radDose: 0.42, canyonWidth: 9, depth: -2.4 },
+            { name: "Vallis Schröteri (Luna)", planet: "moon", coords: "26.2°N 50.8°W", radDose: 0.38, canyonWidth: 11, depth: -2.1 },
+            { name: "Rima Hadley (Luna)", planet: "moon", coords: "25.0°N 3.0°E", radDose: 0.36, canyonWidth: 8, depth: -1.9 },
+            { name: "Mare Tranquillitatis (Luna)", planet: "moon", coords: "0.67°N 23.47°E", radDose: 0.35, canyonWidth: 10, depth: -2.2 },
+            { name: "Cráter Jezero (Marte - Mars Trek)", planet: "mars", coords: "18.38°N 77.58°E", radDose: 0.64, canyonWidth: 11, depth: -2.3 }
         ];
 
         function openClayModal() {
@@ -554,7 +563,7 @@
                 threeInitialized = true;
             }
             selectLunarSite(currentSiteIndex);
-            hablarArgentino("¡Entraste a la Plastilina Electrónica tres D de sesenta por sesenta sensores! Arrastrá el mouse o el dedo sobre la grieta roja para armar un puente firme y después lanzá el Rover.");
+            hablarArgentino("Estás en la matriz tres D de tres mil seiscientos sensores. Arriba podés elegir entre el Modo Puente Rover o el Modo Muro Escudo de NASA RadLab, e incluso viajar al Cráter Jezero en Marte.");
         }
 
         function closeClayModal() {
@@ -562,9 +571,42 @@
             document.getElementById('clayModal').classList.remove('flex');
         }
 
+        function switchClayTaskMode(mode) {
+            clayTaskMode = mode;
+            const bBridge = document.getElementById('modeBtnBridge');
+            const bShield = document.getElementById('modeBtnShield');
+            const actionBtn = document.getElementById('primaryActionBtn');
+            const topHint = document.getElementById('clayTopHint');
+
+            if (mode === 'bridge') {
+                bBridge.className = "px-3 py-1.5 rounded-xl font-extrabold text-xs bg-emerald-400 text-slate-950";
+                bShield.className = "px-3 py-1.5 rounded-xl font-extrabold text-xs bg-slate-800 text-amber-300 border border-amber-400/50";
+                actionBtn.className = "btn-3d-emerald px-4 py-1.5 rounded-xl font-extrabold text-white";
+                actionBtn.textContent = "🚜 ¡Lanzar Rover (A ➔ B)!";
+                topHint.innerHTML = `<span class="text-emerald-300 font-bold">🖱️ Modo Puente:</span> Rellená la falla central entre A y B para que cruce el Rover.`;
+                if (habitatMesh) habitatMesh.visible = false;
+                if (roverMesh) roverMesh.visible = true;
+                hablarArgentino("Modo Puente Rover activado. Rellená la grieta central entre A y B.");
+            } else {
+                bShield.className = "px-3 py-1.5 rounded-xl font-extrabold text-xs bg-amber-400 text-slate-950";
+                bBridge.className = "px-3 py-1.5 rounded-xl font-extrabold text-xs bg-slate-800 text-emerald-300 border border-emerald-400/50";
+                actionBtn.className = "btn-3d-amber px-4 py-1.5 rounded-xl font-extrabold text-slate-950";
+                actionBtn.textContent = "🛡️ Evaluar Blindaje RadLab";
+                topHint.innerHTML = `<span class="text-amber-300 font-bold">🛡️ Modo Escudo RadLab:</span> Levantá un anillo protector alrededor de la cápsula central sin tapar el Sol.`;
+                if (habitatMesh) habitatMesh.visible = true;
+                if (roverMesh) roverMesh.visible = false;
+                hablarArgentino("Modo Muro Anti-Radiación activado. Moldeá un anillo de regolito alrededor de la cápsula central. Si lo hacés muy bajito entra radiación, pero si te pasás de altura tapás los paneles solares.");
+            }
+            selectLunarSite(currentSiteIndex);
+        }
+
         function explainClayVoice() {
-            const site = LUNAR_SITES[currentSiteIndex];
-            hablarArgentino(`Estás en ${site.name}. Tenés tres mil seiscientos sensores activos. Usá el pincel para rellenar la grieta del medio hasta que el radar se ponga verde, y tocá Lanzar Rover.`);
+            const site = SITES_DATA[currentSiteIndex];
+            if (clayTaskMode === 'bridge') {
+                hablarArgentino(`Estás en ${site.name}. Rellená la grieta roja del medio para unir los puntos A y B y lanzá el Rover.`);
+            } else {
+                hablarArgentino(`Estás en ${site.name}, con una dosis base de ${site.radDose} milisieverts por día según NASA RadLab. Levantá el muro alrededor de la cápsula a una altura media para frenar la radiación sin bloquear la energía solar.`);
+            }
         }
 
         function setBrushTool(tool) {
@@ -580,55 +622,73 @@
 
         function selectLunarSite(idx) {
             currentSiteIndex = idx;
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 5; i++) {
                 const b = document.getElementById('siteBtn' + i);
                 if (b) {
                     b.className = i === idx
                         ? "p-2 rounded-xl border-2 border-emerald-400 bg-emerald-500/20 text-left text-xs"
-                        : "p-2 rounded-xl border border-slate-700 bg-slate-900/80 text-left text-xs";
+                        : (i === 4 ? "p-2 rounded-xl border border-orange-500/60 bg-orange-950/40 text-left text-xs" : "p-2 rounded-xl border border-slate-700 bg-slate-900/80 text-left text-xs");
                 }
             }
-            const site = LUNAR_SITES[idx];
-            document.getElementById('siteCoordBadge').textContent = site.coords;
+            const site = SITES_DATA[idx];
+            document.getElementById('siteCoordBadge').textContent = `${site.coords} • ${site.radDose} mSv/d`;
             generateSiteTopography(idx);
             updateTerrainGeometry();
             drawRadar2D();
-            evaluateBridgeContinuity();
+            evaluateAllMetrics();
         }
 
         function generateSiteTopography(idx) {
-            const site = LUNAR_SITES[idx];
+            const site = SITES_DATA[idx];
             for (let z = 0; z < GRID_SIZE; z++) {
                 for (let x = 0; x < GRID_SIZE; x++) {
-                    const dx = x - 30;
-                    const dz = z - 30;
-                    const meander = Math.sin(z * 0.18 + idx) * 3.5;
-                    const distFromCrack = Math.abs(dx - meander);
-                    let h = 0.15 * Math.sin(x * 0.25) * Math.cos(z * 0.25);
-                    if (distFromCrack < site.canyonWidth) {
-                        const factor = Math.cos((distFromCrack / site.canyonWidth) * (Math.PI / 2));
-                        h = site.depth * factor * factor;
+                    if (clayTaskMode === 'bridge') {
+                        const dx = x - 30;
+                        const meander = Math.sin(z * 0.18 + idx) * 3.5;
+                        const distFromCrack = Math.abs(dx - meander);
+                        let h = 0.15 * Math.sin(x * 0.25) * Math.cos(z * 0.25);
+                        if (distFromCrack < site.canyonWidth) {
+                            const factor = Math.cos((distFromCrack / site.canyonWidth) * (Math.PI / 2));
+                            h = site.depth * factor * factor;
+                        }
+                        heightMap[z * GRID_SIZE + x] = h;
+                    } else {
+                        // Terreno plano alrededor de la cápsula central en (30,30)
+                        const distCenter = Math.hypot(x - 30, z - 30);
+                        heightMap[z * GRID_SIZE + x] = distCenter < 6 ? 0.0 : 0.1 * Math.sin(x * 0.2) * Math.cos(z * 0.2);
                     }
-                    heightMap[z * GRID_SIZE + x] = h;
                 }
             }
         }
 
         function resetClayTerrain() {
             selectLunarSite(currentSiteIndex);
-            hablarArgentino("Terreno reiniciado a su topografía original de la NASA.");
+            hablarArgentino("Terreno reiniciado.");
         }
 
-        function autoBuildIdealBridge() {
-            for (let z = 25; z <= 35; z++) {
-                for (let x = 10; x <= 50; x++) {
-                    heightMap[z * GRID_SIZE + x] = 0.15;
+        function autoBuildCurrentMode() {
+            if (clayTaskMode === 'bridge') {
+                for (let z = 25; z <= 35; z++) {
+                    for (let x = 10; x <= 50; x++) {
+                        heightMap[z * GRID_SIZE + x] = 0.18;
+                    }
                 }
+                hablarArgentino("¡Puente nivelado en altura ideal! Ahora tocá Lanzar Rover.");
+            } else {
+                // Anillo de regolito de altura óptima (0.95m) a radio 10..15 del centro (30,30)
+                for (let z = 0; z < GRID_SIZE; z++) {
+                    for (let x = 0; x < GRID_SIZE; x++) {
+                        const d = Math.hypot(x - 30, z - 30);
+                        if (d >= 9 && d <= 15) {
+                            heightMap[z * GRID_SIZE + x] = 0.95;
+                        }
+                    }
+                }
+                hablarArgentino("¡Muro Escudo moldeado a la altura justa! Protege de la radiación de RadLab sin tapar la luz solar de los paneles.");
             }
             updateTerrainGeometry();
             drawRadar2D();
-            evaluateBridgeContinuity();
-            hablarArgentino("¡Puente nivelado automáticamente sobre la grieta! Ahora tocá Lanzar Rover para cruzar de A hasta B.");
+            evaluateAllMetrics();
         }
 
         function applyBrushAtGrid(gx, gz) {
@@ -643,11 +703,12 @@
                             const falloff = (1 - dist / radius) * 0.35;
                             const idx = nz * GRID_SIZE + nx;
                             if (currentBrush === 'raise') {
-                                heightMap[idx] = Math.min(1.6, heightMap[idx] + falloff);
+                                heightMap[idx] = Math.min(1.8, heightMap[idx] + falloff);
                             } else if (currentBrush === 'lower') {
                                 heightMap[idx] = Math.max(-2.6, heightMap[idx] - falloff);
                             } else if (currentBrush === 'smooth') {
-                                heightMap[idx] += (0.1 - heightMap[idx]) * 0.45;
+                                const target = clayTaskMode === 'shield' ? 0.95 : 0.15;
+                                heightMap[idx] += (target - heightMap[idx]) * 0.45;
                             }
                         }
                     }
@@ -655,12 +716,12 @@
             }
             updateTerrainGeometry();
             drawRadar2D();
-            evaluateBridgeContinuity();
+            evaluateAllMetrics();
         }
 
-        function evaluateBridgeContinuity() {
-            let safeCells = 0;
-            let totalPathCells = 0;
+        function evaluateAllMetrics() {
+            // 1. Continuidad Puente
+            let safeCells = 0, totalPathCells = 0;
             for (let x = 10; x <= 50; x++) {
                 for (let z = 27; z <= 33; z++) {
                     totalPathCells++;
@@ -668,50 +729,84 @@
                     if (h >= -0.45 && h <= 1.1) safeCells++;
                 }
             }
-            const pct = Math.round((safeCells / totalPathCells) * 100);
-            document.getElementById('bridgeContinuityText').textContent = `${pct}%`;
-            document.getElementById('bridgeProgressBar').style.width = `${pct}%`;
-            return pct;
+            const bridgePct = Math.round((safeCells / totalPathCells) * 100);
+            document.getElementById('bridgeContinuityText').textContent = `${bridgePct}%`;
+
+            // 2. Muro Escudo RadLab (Anillo radio 9..15 alrededor de 30,30)
+            let ringSum = 0, ringCount = 0, overHeightCount = 0;
+            for (let z = 0; z < GRID_SIZE; z++) {
+                for (let x = 0; x < GRID_SIZE; x++) {
+                    const d = Math.hypot(x - 30, z - 30);
+                    if (d >= 9 && d <= 15) {
+                        ringCount++;
+                        const h = Math.max(0, heightMap[z * GRID_SIZE + x]);
+                        ringSum += h;
+                        if (h > 1.35) overHeightCount++;
+                    }
+                }
+            }
+            const avgWall = ringSum / (ringCount || 1);
+            const radProtection = Math.min(98, Math.round((avgWall / 1.0) * 90));
+            const solarExposure = Math.max(25, Math.round(100 - (overHeightCount / ringCount) * 85 - Math.max(0, avgWall - 1.15) * 60));
+            document.getElementById('shieldBalanceText').textContent = `Rad: ${radProtection}% | Sol: ${solarExposure}%`;
+
+            return { bridgePct, radProtection, solarExposure };
         }
 
-        function launchRoverTest() {
-            if (energyQums < 25) {
-                hablarArgentino("Che, necesitás al menos veinticinco qums de energía para lanzar el Rover.");
-                return;
-            }
-            energyQums -= 25;
-            document.getElementById('resEnergy').textContent = `${energyQums} qums`;
-
-            const pct = evaluateBridgeContinuity();
+        function runCurrentClayTest() {
+            const metrics = evaluateAllMetrics();
             const banner = document.getElementById('roverStatusBanner');
-            let step = 10;
-            const interval = setInterval(() => {
-                step += 2;
-                const worldX = ((step / (GRID_SIZE - 1)) - 0.5) * 24;
-                const h = heightMap[30 * GRID_SIZE + step] || 0;
-                if (roverMesh) {
-                    roverMesh.position.set(worldX, h + 0.55, 0);
-                }
-                if (pct < 80 && step >= 28 && step <= 32) {
-                    clearInterval(interval);
-                    banner.className = "absolute bottom-2.5 left-2.5 right-2.5 bg-rose-950/95 px-3 py-2 rounded-xl border border-rose-400 text-xs font-bold text-center text-rose-200";
-                    banner.textContent = `⚠️ ¡El Rover se atascó en la grieta (${pct}% completado)! Rellená más el centro del puente o usá Auto-Moldear.`;
-                    hablarArgentino("¡Uy, guarda che! Al puente todavía le falta relleno en el medio y el Rover se encajó. Nivelalo un poquito más.");
-                    return;
-                }
-                if (step >= 50) {
-                    clearInterval(interval);
-                    if (!bridgeCompleted) {
-                        bridgeCompleted = true;
-                        energyQums += 180;
+
+            if (clayTaskMode === 'bridge') {
+                let step = 10;
+                const interval = setInterval(() => {
+                    step += 2;
+                    const worldX = ((step / (GRID_SIZE - 1)) - 0.5) * 24;
+                    const h = heightMap[30 * GRID_SIZE + step] || 0;
+                    if (roverMesh) roverMesh.position.set(worldX, h + 0.55, 0);
+
+                    if (metrics.bridgePct < 80 && step >= 28 && step <= 32) {
+                        clearInterval(interval);
+                        banner.className = "absolute bottom-2.5 left-2.5 right-2.5 bg-rose-950/95 px-3 py-2 rounded-xl border border-rose-400 text-xs font-bold text-center text-rose-200";
+                        banner.textContent = `⚠️ ¡El Rover se atascó en la grieta (${metrics.bridgePct}%)! Rellená más el centro o tocá Auto-Moldear.`;
+                        hablarArgentino("¡Guarda che! Todavía queda un pozo en el medio del puente. Rellenalo un poquito más.");
+                        return;
+                    }
+                    if (step >= 50) {
+                        clearInterval(interval);
+                        if (!bridgeCompleted) {
+                            bridgeCompleted = true;
+                            energyQums += 180;
+                            document.getElementById('resEnergy').textContent = `${energyQums} qums`;
+                            document.getElementById('bridgeHudStatus').textContent = "Aprobado ✅";
+                        }
+                        banner.className = "absolute bottom-2.5 left-2.5 right-2.5 bg-emerald-950/95 px-3 py-2 rounded-xl border border-emerald-400 text-xs font-bold text-center text-emerald-200";
+                        banner.textContent = "🏆 ¡Puente Rover aprobado (+180 qums)! Ahora probá el Modo 2: Muro RadLab arriba.";
+                        hablarArgentino("¡Joya che! El Rover cruzó impecable. Ahora probá el botón Modo 2 arriba para levantar el Muro Anti-Radiación.");
+                    }
+                }, 45);
+            } else {
+                // Evaluación Muro Escudo RadLab
+                if (metrics.radProtection >= 75 && metrics.solarExposure >= 75) {
+                    if (!shieldCompleted) {
+                        shieldCompleted = true;
+                        energyQums += 200;
                         document.getElementById('resEnergy').textContent = `${energyQums} qums`;
-                        document.getElementById('bridgeHudStatus').textContent = "Aprobado ✅";
+                        document.getElementById('shieldHudStatus').textContent = "Óptimo 🛡️";
                     }
                     banner.className = "absolute bottom-2.5 left-2.5 right-2.5 bg-emerald-950/95 px-3 py-2 rounded-xl border border-emerald-400 text-xs font-bold text-center text-emerald-200";
-                    banner.textContent = "🏆 ¡Cruce exitoso de A hasta B! El puente soportó al Rover (+180 qums de recompensa).";
-                    hablarArgentino("¡Impecable che! El Rover cruzó el puente de punta a punta sin problemas. ¡Ganaste ciento ochenta qums!");
+                    banner.textContent = `🛡️ ¡Equilibrio RadLab Perfecto! Blindaje ${metrics.radProtection}% y Luz Solar ${metrics.solarExposure}% (+200 qums).`;
+                    hablarArgentino(`¡Espectacular che! Lograste el equilibrio justo de ingeniería: ${metrics.radProtection} por ciento de protección contra radiación y ${metrics.solarExposure} por ciento de sol libre para los paneles.`);
+                } else if (metrics.radProtection < 75) {
+                    banner.className = "absolute bottom-2.5 left-2.5 right-2.5 bg-amber-950/95 px-3 py-2 rounded-xl border border-amber-400 text-xs font-bold text-center text-amber-200";
+                    banner.textContent = `⚠️ Muro demasiado bajo (Blindaje ${metrics.radProtection}%). Levantá más el anillo alrededor de la cápsula central.`;
+                    hablarArgentino("Che, el muro alrededor de la cápsula está muy bajito y pasa la radiación de RadLab. Elevá un poco más el anillo o usá Auto-Moldear.");
+                } else {
+                    banner.className = "absolute bottom-2.5 left-2.5 right-2.5 bg-rose-950/95 px-3 py-2 rounded-xl border border-rose-400 text-xs font-bold text-center text-rose-200";
+                    banner.textContent = `🌑 ¡Muro demasiado alto! Frenás la radiación pero dejaste los paneles con solo ${metrics.solarExposure}% de luz solar. Usá Nivelar.`;
+                    hablarArgentino("¡Te pasaste de rosca con la altura del muro che! Tapaste el Sol de los paneles en Zigzag. Bajalo un poquito con el botón Nivelar.");
                 }
-            }, 45);
+            }
         }
 
         function initClay3D() {
@@ -726,8 +821,7 @@
             container.innerHTML = '';
             container.appendChild(renderer.domElement);
 
-            const amb = new THREE.AmbientLight(0xffffff, 0.75);
-            scene.add(amb);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.75));
             const dir = new THREE.DirectionalLight(0x67e8f9, 1.1);
             dir.position.set(12, 24, 14);
             scene.add(dir);
@@ -737,21 +831,26 @@
             const colors = new Float32Array(GRID_SIZE * GRID_SIZE * 3);
             geom.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-            const mat = new THREE.MeshStandardMaterial({
-                vertexColors: true,
-                roughness: 0.55,
-                metalness: 0.15,
-                flatShading: true
-            });
+            const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.55, metalness: 0.15, flatShading: true });
             terrainMesh = new THREE.Mesh(geom, mat);
             scene.add(terrainMesh);
 
             // Rover 3D
-            const roverGeom = new THREE.BoxGeometry(1.1, 0.65, 0.9);
-            const roverMat = new THREE.MeshStandardMaterial({ color: 0xfbbf24, emissive: 0x78350f });
-            roverMesh = new THREE.Mesh(roverGeom, roverMat);
+            roverMesh = new THREE.Mesh(
+                new THREE.BoxGeometry(1.1, 0.65, 0.9),
+                new THREE.MeshStandardMaterial({ color: 0xfbbf24, emissive: 0x78350f })
+            );
             roverMesh.position.set(-8, 0.6, 0);
             scene.add(roverMesh);
+
+            // Domo Hábitat Central para Modo Escudo
+            habitatMesh = new THREE.Mesh(
+                new THREE.SphereGeometry(1.6, 20, 16, 0, Math.PI * 2, 0, Math.PI / 2),
+                new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0369a1, roughness: 0.3 })
+            );
+            habitatMesh.position.set(0, 0.05, 0);
+            habitatMesh.visible = false;
+            scene.add(habitatMesh);
 
             raycaster = new THREE.Raycaster();
             mouseVec = new THREE.Vector2();
@@ -777,7 +876,6 @@
             window.addEventListener('pointerup', () => { isPointerDown = false; });
             renderer.domElement.addEventListener('pointermove', onPointerMove);
 
-            // Interacción directa también desde el Radar 2D
             const radar = document.getElementById('radar2DCanvas');
             radar.addEventListener('pointerdown', (e) => {
                 const r = radar.getBoundingClientRect();
@@ -795,17 +893,21 @@
 
         function updateTerrainGeometry() {
             if (!terrainMesh) return;
+            const isMars = SITES_DATA[currentSiteIndex].planet === 'mars';
             const pos = terrainMesh.geometry.attributes.position;
             const col = terrainMesh.geometry.attributes.color;
             for (let i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
                 const h = heightMap[i];
                 pos.setY(i, h);
                 if (h < -0.5) {
-                    col.setXYZ(i, 0.9, 0.22, 0.27); // Rojo: Grieta profunda
-                } else if (h > 0.65) {
-                    col.setXYZ(i, 0.22, 0.74, 0.97); // Celeste: Elevación alta
+                    col.setXYZ(i, 0.9, 0.22, 0.27);
+                } else if (h > 1.3) {
+                    col.setXYZ(i, 0.96, 0.62, 0.04); // Ámbar alto (alerta sombra solar)
+                } else if (h > 0.6) {
+                    col.setXYZ(i, 0.22, 0.74, 0.97); // Escudo óptimo celeste
                 } else {
-                    col.setXYZ(i, 0.16, 0.82, 0.55); // Verde Esmeralda: Puente seguro
+                    if (isMars) col.setXYZ(i, 0.85, 0.38, 0.18); // Suelo marciano rojizo
+                    else col.setXYZ(i, 0.16, 0.82, 0.55);
                 }
             }
             pos.needsUpdate = true;
@@ -824,16 +926,20 @@
                 for (let x = 0; x < GRID_SIZE; x++) {
                     const h = heightMap[z * GRID_SIZE + x];
                     if (h < -0.5) ctx.fillStyle = '#e11d48';
-                    else if (h > 0.65) ctx.fillStyle = '#38bdf8';
-                    else ctx.fillStyle = '#10b981';
+                    else if (h > 1.3) ctx.fillStyle = '#f59e0b';
+                    else if (h > 0.6) ctx.fillStyle = '#38bdf8';
+                    else ctx.fillStyle = SITES_DATA[currentSiteIndex].planet === 'mars' ? '#ea580c' : '#10b981';
                     ctx.fillRect(x * cellW, z * cellW, cellW - 0.4, cellW - 0.4);
                 }
             }
-            // Marcadores A y B
             ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 12px sans-serif';
-            ctx.fillText('A', 32, 124);
-            ctx.fillText('B', 195, 124);
+            ctx.font = 'bold 11px sans-serif';
+            if (clayTaskMode === 'bridge') {
+                ctx.fillText('A', 32, 124);
+                ctx.fillText('B', 195, 124);
+            } else {
+                ctx.fillText('BASE', 104, 124);
+            }
         }
     </script>
 </body>
